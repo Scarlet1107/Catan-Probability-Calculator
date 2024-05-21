@@ -1,7 +1,6 @@
 import React, { useRef, useEffect } from "react";
 
 export default function Home() {
-  
   type Settlement = {
     name: string;
     id: number;
@@ -22,84 +21,102 @@ export default function Home() {
 
       <div className="flex h-screen justify-center ml-4">
         {/* 左側 */}
-        <div className="w-1/2 bg-red-100">
-          <div>あとで説明文を追加Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi eos quibusdam illo at alias corrupti voluptas numquam id rerum, eaque explicabo labore quasi doloremque nisi sint consequuntur nam odit veniam.</div>
-          <button className="button mb-2">開拓地を追加</button>
+        <div className="w-3/5 bg-red-100">
           <div>
+            あとで説明文を追加Lorem ipsum dolor sit amet consectetur adipisicing
+            elit. Excepturi eos quibusdam illo at alias corrupti voluptas
+            numquam id rerum, eaque explicabo labore quasi doloremque nisi sint
+            consequuntur nam odit veniam.
+          </div>
+
+          <div className="grid grid-cols-4 place-items-center gap-2">
+            <button className="button mb-2">開拓地を追加</button>
+            <div>資源１</div>
+            <div>資源２</div>
+            <div>資源３</div>
+            {/* ここをmapで複数表示する */}
             <input type="input" value="開拓地１" />
-            <select
-              id="resource-select"
-              className="border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-            >
-              <option value=""></option>
-              <option value="wood">木材</option>
-              <option value="bricks">レンガ</option>
-              <option value="wheat">小麦</option>
-              <option value="iron">鉄</option>
-              <option value="wool">羊毛</option>
-            </select>
-            <select
-              id="number-select"
-              className="border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-            >
-              <option value=""></option>
-              {Array.from({ length: 11 }, (_, i) => i + 2)
-                .filter((number) => number !== 7)
-                .map((number) => (
-                  <option key={number} value={number}>
-                    {number}
-                  </option>
-                ))}
-            </select>
-            <select
-              id="resource-select"
-              className="border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-            >
-              <option value=""></option>
-              <option value="wood">木材</option>
-              <option value="bricks">レンガ</option>
-              <option value="wheat">小麦</option>
-              <option value="iron">鉄</option>
-              <option value="wool">羊毛</option>
-            </select>
-            <select
-              id="number-select"
-              className="border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-            >
-              <option value=""></option>
-              {Array.from({ length: 11 }, (_, i) => i + 2)
-                .filter((number) => number !== 7)
-                .map((number) => (
-                  <option key={number} value={number}>
-                    {number}
-                  </option>
-                ))}
-            </select>
-            <select
-              id="resource-select"
-              className="border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-            >
-              <option value=""></option>
-              <option value="wood">木材</option>
-              <option value="bricks">レンガ</option>
-              <option value="wheat">小麦</option>
-              <option value="iron">鉄</option>
-              <option value="wool">羊毛</option>
-            </select>
-            <select
-              id="number-select"
-              className="border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-            >
-              <option value=""></option>
-              {Array.from({ length: 11 }, (_, i) => i + 2)
-                .filter((number) => number !== 7)
-                .map((number) => (
-                  <option key={number} value={number}>
-                    {number}
-                  </option>
-                ))}
-            </select>
-            <button className="bg-red-500 text-white font-bold p-2 rounded;  ">消</button>
+            <div>
+              <select
+                id="resource-select"
+                className="border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+              >
+                <option value=""></option>
+                <option value="wood">木材</option>
+                <option value="bricks">レンガ</option>
+                <option value="wheat">小麦</option>
+                <option value="iron">鉄</option>
+                <option value="wool">羊毛</option>
+              </select>
+              <select
+                id="number-select"
+                className="border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+              >
+                <option value=""></option>
+                {Array.from({ length: 11 }, (_, i) => i + 2)
+                  .filter((number) => number !== 7)
+                  .map((number) => (
+                    <option key={number} value={number}>
+                      {number}
+                    </option>
+                  ))}
+              </select>
+            </div>
+            <div>
+              <select
+                id="resource-select"
+                className="border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+              >
+                <option value=""></option>
+                <option value="wood">木材</option>
+                <option value="bricks">レンガ</option>
+                <option value="wheat">小麦</option>
+                <option value="iron">鉄</option>
+                <option value="wool">羊毛</option>
+              </select>
+              <select
+                id="number-select"
+                className="border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+              >
+                <option value=""></option>
+                {Array.from({ length: 11 }, (_, i) => i + 2)
+                  .filter((number) => number !== 7)
+                  .map((number) => (
+                    <option key={number} value={number}>
+                      {number}
+                    </option>
+                  ))}
+              </select>
+            </div>
+            <div>
+              <select
+                id="resource-select"
+                className="border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+              >
+                <option value=""></option>
+                <option value="wood">木材</option>
+                <option value="bricks">レンガ</option>
+                <option value="wheat">小麦</option>
+                <option value="iron">鉄</option>
+                <option value="wool">羊毛</option>
+              </select>
+              <select
+                id="number-select"
+                className="border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+              >
+                <option value=""></option>
+                {Array.from({ length: 11 }, (_, i) => i + 2)
+                  .filter((number) => number !== 7)
+                  .map((number) => (
+                    <option key={number} value={number}>
+                      {number}
+                    </option>
+                  ))}
+              </select>
+              <button className="bg-red-500 text-white font-bold p-2 rounded ml-4">
+                消
+              </button>
+            </div>
           </div>
         </div>
         {/* 右側 */}
