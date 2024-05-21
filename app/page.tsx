@@ -1,11 +1,52 @@
-import React, { useRef, useEffect } from "react";
+"use client";
+import React, { useRef, useEffect, useState } from "react";
 
 export default function Home() {
+  const initialSettlements: Settlement[] = [
+    {
+      name: "開拓地1",
+      id: 1,
+      resources: ["", "", ""],
+      numbers: [0, 0, 0],
+      upgraded: false,
+    },
+    {
+      name: "開拓地2",
+      id: 2,
+      resources: ["", "", ""],
+      numbers: [0, 0, 0],
+      upgraded: false,
+    },
+  ];
+
+  const [settlements, setSettlements] =
+    useState<Settlement[]>(initialSettlements);
+  const [probability, setProbability] = useState<number[]>([]);
+  const [expectedValue, setExpectedValue] = useState<number[]>([]);
+
   type Settlement = {
     name: string;
     id: number;
     resources: [string, string, string];
     numbers: [number, number, number];
+    upgraded: boolean;
+  };
+
+  useEffect(() => {
+    console.log("settlements = " + settlements);
+  }, [settlements]);
+
+  const handleCreateSettlement = () => {
+    setSettlements([
+      ...settlements,
+      {
+        name: `開拓地${settlements.length + 1}`,
+        id: settlements.length + 1,
+        resources: ["", "", ""],
+        numbers: [0, 0, 0],
+        upgraded: false,
+      },
+    ]);
   };
 
   return (
@@ -21,7 +62,7 @@ export default function Home() {
 
       <div className="flex h-screen justify-center ml-4">
         {/* 左側 */}
-        <div className="w-3/5 bg-red-100">
+        <div className="w-3/5 bg-red-100 p-4">
           <div>
             あとで説明文を追加Lorem ipsum dolor sit amet consectetur adipisicing
             elit. Excepturi eos quibusdam illo at alias corrupti voluptas
@@ -30,7 +71,12 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-4 place-items-center gap-2">
-            <button className="button mb-2">開拓地を追加</button>
+            <button
+              className="button mb-2"
+              onClick={() => handleCreateSettlement()}
+            >
+              開拓地を追加
+            </button>
             <div>資源１</div>
             <div>資源２</div>
             <div>資源３</div>

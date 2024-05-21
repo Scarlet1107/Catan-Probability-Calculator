@@ -26,12 +26,16 @@
     rgb(var(--background-start-rgb));
 } */
 
+body {
+  -webkit-text-size-adjust: 100%;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 }
 
-button{
-  @apply bg-blue-500 text-white font-bold p-2 rounded;  
+button {
+  @apply bg-blue-500 text-white font-bold p-2 rounded;
 }
