@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 export default function Home() {
   type Settlement = {
@@ -13,14 +14,14 @@ export default function Home() {
   const initialSettlements: Settlement[] = [
     {
       name: "開拓地1",
-      id: 1,
+      id: uuidv4(),
       resources: ["", "", ""],
       numbers: [0, 0, 0],
       upgraded: false,
     },
     {
       name: "開拓地2",
-      id: 2,
+      id: uuidv4(),
       resources: ["", "", ""],
       numbers: [0, 0, 0],
       upgraded: false,
@@ -41,7 +42,7 @@ export default function Home() {
       ...settlements,
       {
         name: `開拓地${settlements.length + 1}`,
-        id: settlements.length + 1,
+        id: uuidv4(),
         resources: ["", "", ""],
         numbers: [0, 0, 0],
         upgraded: false,
