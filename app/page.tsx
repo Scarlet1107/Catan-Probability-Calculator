@@ -1,7 +1,15 @@
 "use client";
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Home() {
+  type Settlement = {
+    name: string;
+    id: number;
+    resources: [string, string, string];
+    numbers: [number, number, number];
+    upgraded: boolean;
+  };
+
   const initialSettlements: Settlement[] = [
     {
       name: "開拓地1",
@@ -19,21 +27,13 @@ export default function Home() {
     },
   ];
 
-  const [settlements, setSettlements] =
-    useState<Settlement[]>(initialSettlements);
-  const [probability, setProbability] = useState<number[]>([]);
-  const [expectedValue, setExpectedValue] = useState<number[]>([]);
-
-  type Settlement = {
-    name: string;
-    id: number;
-    resources: [string, string, string];
-    numbers: [number, number, number];
-    upgraded: boolean;
-  };
+  const [settlements, setSettlements] = useState<Settlement[]>(initialSettlements);
+  const [probability, setProbability] = useState<number>();
+  const [expectedValue, setExpectedValue] = useState<number>();
+  const resourseSelect = useState<string[]>([]);
 
   useEffect(() => {
-    console.log("settlements = " + settlements);
+    console.log("settlements = ", settlements);
   }, [settlements]);
 
   const handleCreateSettlement = () => {
@@ -47,6 +47,28 @@ export default function Home() {
         upgraded: false,
       },
     ]);
+  };
+
+  const handleResourceChange = (id: number, index: number, value: string) => {
+    setSettlements(settlements.map(settlement =>
+      settlement.id === id ? {
+        ...settlement,
+        resources: settlement.resources.map((res, idx) => idx === index ? value : res) as [string, string, string]
+      } : settlement
+    ));
+  };
+
+  const handleNumberChange = (id: number, index: number, value: number) => {
+    setSettlements(settlements.map(settlement =>
+      settlement.id === id ? {
+        ...settlement,
+        numbers: settlement.numbers.map((num, idx) => idx === index ? value : num) as [number, number, number]
+      } : settlement
+    ));
+  };
+
+  const handleDeleteSettlement = (id: number) => {
+    setSettlements(settlements.filter(settlement => settlement.id !== id));
   };
 
   return (
@@ -73,7 +95,7 @@ export default function Home() {
           <div className="grid grid-cols-4 place-items-center gap-2">
             <button
               className="button mb-2"
-              onClick={() => handleCreateSettlement()}
+              onClick={handleCreateSettlement}
             >
               開拓地を追加
             </button>
@@ -81,88 +103,58 @@ export default function Home() {
             <div>資源２</div>
             <div>資源３</div>
             {/* ここをmapで複数表示する */}
-            <input type="input" value="開拓地１" />
-            <div>
-              <select
-                id="resource-select"
-                className="border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-              >
-                <option value=""></option>
-                <option value="wood">木材</option>
-                <option value="bricks">レンガ</option>
-                <option value="wheat">小麦</option>
-                <option value="iron">鉄</option>
-                <option value="wool">羊毛</option>
-              </select>
-              <select
-                id="number-select"
-                className="border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-              >
-                <option value=""></option>
-                {Array.from({ length: 11 }, (_, i) => i + 2)
-                  .filter((number) => number !== 7)
-                  .map((number) => (
-                    <option key={number} value={number}>
-                      {number}
-                    </option>
-                  ))}
-              </select>
-            </div>
-            <div>
-              <select
-                id="resource-select"
-                className="border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-              >
-                <option value=""></option>
-                <option value="wood">木材</option>
-                <option value="bricks">レンガ</option>
-                <option value="wheat">小麦</option>
-                <option value="iron">鉄</option>
-                <option value="wool">羊毛</option>
-              </select>
-              <select
-                id="number-select"
-                className="border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-              >
-                <option value=""></option>
-                {Array.from({ length: 11 }, (_, i) => i + 2)
-                  .filter((number) => number !== 7)
-                  .map((number) => (
-                    <option key={number} value={number}>
-                      {number}
-                    </option>
-                  ))}
-              </select>
-            </div>
-            <div>
-              <select
-                id="resource-select"
-                className="border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-              >
-                <option value=""></option>
-                <option value="wood">木材</option>
-                <option value="bricks">レンガ</option>
-                <option value="wheat">小麦</option>
-                <option value="iron">鉄</option>
-                <option value="wool">羊毛</option>
-              </select>
-              <select
-                id="number-select"
-                className="border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-              >
-                <option value=""></option>
-                {Array.from({ length: 11 }, (_, i) => i + 2)
-                  .filter((number) => number !== 7)
-                  .map((number) => (
-                    <option key={number} value={number}>
-                      {number}
-                    </option>
-                  ))}
-              </select>
-              <button className="bg-red-500 text-white font-bold p-2 rounded ml-4">
-                消
-              </button>
-            </div>
+            {settlements.map((settlement) => (
+              <div key={settlement.id} className="grid grid-cols-4 col-span-4 mb-4">
+                <input
+                  type="text"
+                  value={settlement.name}
+                  onChange={(e) => {
+                    const name = e.target.value;
+                    setSettlements(settlements.map(s => s.id === settlement.id ? { ...s, name } : s));
+                  }}
+                  className="border border-gray-300 rounded px-4 py-2 mb-2"
+                  placeholder="Settlement Name"
+                />
+
+                {settlement.resources.map((resource, index) => (
+                  <div key={index}>
+                    <select
+                      value={resource}
+                      onChange={(e) => handleResourceChange(settlement.id, index, e.target.value)}
+                      className="border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                    >
+                      <option value=""></option>
+                      <option value="wood">木材</option>
+                      <option value="bricks">レンガ</option>
+                      <option value="wheat">小麦</option>
+                      <option value="iron">鉄</option>
+                      <option value="wool">羊毛</option>
+                    </select>
+                    <select
+                      value={settlement.numbers[index]}
+                      onChange={(e) => handleNumberChange(settlement.id, index, Number(e.target.value))}
+                      className="border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                    >
+                      <option value=""></option>
+                      {Array.from({ length: 11 }, (_, i) => i + 2)
+                        .filter((number) => number !== 7)
+                        .map((number) => (
+                          <option key={number} value={number}>
+                            {number}
+                          </option>
+                        ))}
+                    </select>
+                  </div>
+                ))}
+                <button
+                  className="bg-red-500 text-white font-bold p-2 rounded ml-4"
+                  onClick={() => handleDeleteSettlement(settlement.id)}
+                >
+                  消
+                </button>
+              </div>
+
+            ))}
           </div>
         </div>
         {/* 右側 */}
