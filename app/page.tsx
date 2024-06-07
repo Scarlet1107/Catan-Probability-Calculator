@@ -92,7 +92,7 @@ export default function Home() {
             consequuntur nam odit veniam.
           </div>
 
-          <div className="grid grid-cols-4 place-items-center gap-2">
+          <div className="grid grid-cols-5 gap-4 place-items-center mt-6">
             <button
               className="button mb-2"
               onClick={handleCreateSettlement}
@@ -102,9 +102,12 @@ export default function Home() {
             <div>資源１</div>
             <div>資源２</div>
             <div>資源３</div>
+            <div></div>
+          </div>
+          <div>
             {/* ここをmapで複数表示する */}
             {settlements.map((settlement) => (
-              <div key={settlement.id} className="grid grid-cols-4 col-span-4 mb-4">
+              <div key={settlement.id} className="grid grid-cols-5 gap-4 mb-4">
                 <input
                   type="text"
                   value={settlement.name}
@@ -112,16 +115,16 @@ export default function Home() {
                     const name = e.target.value;
                     setSettlements(settlements.map(s => s.id === settlement.id ? { ...s, name } : s));
                   }}
-                  className="border border-gray-300 rounded px-4 py-2 mb-2"
+                  className="border border-gray-300 rounded px-4 py-2 mb-2 h-1/2 w-4/5 place-self-center"
                   placeholder="Settlement Name"
                 />
 
                 {settlement.resources.map((resource, index) => (
-                  <div key={index}>
+                  <div key={index} className="">
                     <select
                       value={resource}
                       onChange={(e) => handleResourceChange(settlement.id, index, e.target.value)}
-                      className="border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                      className="w-4/5 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                     >
                       <option value=""></option>
                       <option value="wood">木材</option>
@@ -133,7 +136,7 @@ export default function Home() {
                     <select
                       value={settlement.numbers[index]}
                       onChange={(e) => handleNumberChange(settlement.id, index, Number(e.target.value))}
-                      className="border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                      className="w-4/5 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                     >
                       <option value=""></option>
                       {Array.from({ length: 11 }, (_, i) => i + 2)
@@ -146,12 +149,17 @@ export default function Home() {
                     </select>
                   </div>
                 ))}
-                <button
-                  className="bg-red-500 text-white font-bold p-2 rounded ml-4"
-                  onClick={() => handleDeleteSettlement(settlement.id)}
-                >
-                  消
-                </button>
+                <div className="flex flex-col w-3/4 justify-center space-y-2">
+                  <button className="bg-blue-500 text-white font-bold p-2 rounded ml-4">
+                    都市化
+                  </button>
+                  <button
+                    className="bg-red-500 text-white font-bold p-2 rounded ml-4"
+                    onClick={() => handleDeleteSettlement(settlement.id)}
+                  >
+                    消
+                  </button>
+                </div>
               </div>
 
             ))}
