@@ -68,8 +68,30 @@ export default function Home() {
     ));
   };
 
+  const handleUpgradeSettlement = (id: number) => {
+    setSettlements(settlements.map(settlement =>
+      settlement.id === id ? {
+        ...settlement,
+        upgraded: true
+      } : settlement
+    ));
+  }
+
+  const handleDowngrageSettlement = (id: number) => {
+    const confirmed = window.confirm("本当に開拓地に戻しますか？");
+    if (confirmed)
+      setSettlements(settlements.map(settlement =>
+        settlement.id === id ? {
+          ...settlement,
+          upgraded: false
+        } : settlement
+      ));
+  }
+
   const handleDeleteSettlement = (id: number) => {
-    setSettlements(settlements.filter(settlement => settlement.id !== id));
+    const confirmed = window.confirm("本当に開拓地を削除しますか？");
+    if (confirmed)
+      setSettlements(settlements.filter(settlement => settlement.id !== id));
   };
 
   return (
@@ -143,19 +165,29 @@ export default function Home() {
                       {Array.from({ length: 11 }, (_, i) => i + 2)
                         .filter((number) => number !== 7)
                         .map((number) => (
-                          <option key={number} value={number}>
+                          <option
+                            key={number}
+                            value={number}
+                            className={`${number === 6 || number === 8 ? 'text-red-500 hover:text-red-500' : ''}`}
+                          >
                             {number}
                           </option>
                         ))}
                     </select>
+
+
                   </div>
                 ))}
                 <div className="flex flex-col w-3/4 justify-center space-y-2">
-                  <button className="bg-blue-500 text-white font-bold p-2 rounded ml-4">
-                    都市化
-                  </button>
+                  {settlement.upgraded ? <button className="bg-green-500 text-white font-bold p-2 rounded" onClick={() => handleDowngrageSettlement(settlement.id)}>都市</button> :
+                    <button
+                      className="bg-blue-500 text-white font-bold p-2 rounded"
+                      onClick={() => handleUpgradeSettlement(settlement.id)}>
+                      都市化
+                    </button>
+                  }
                   <button
-                    className="bg-red-500 text-white font-bold p-2 rounded ml-4"
+                    className="bg-red-500 text-white font-bold p-2 rounded"
                     onClick={() => handleDeleteSettlement(settlement.id)}
                   >
                     消
