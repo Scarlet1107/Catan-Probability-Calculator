@@ -1,6 +1,25 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 export default function Home() {
   type Settlement = {
@@ -39,12 +58,6 @@ export default function Home() {
     handleCalculateExpectation();
     handleCalculateProbability();
   }, [settlements]);
-
-  //   const handleCalculateProbability = () => {
-  //     settlements.forEach((settlement) => {
-
-  //     }
-  // }
 
   const numberToProbability = (number: number) => {
     if (number === 2 || number === 12) return 1;
@@ -167,6 +180,59 @@ export default function Home() {
       setSettlements(settlements.filter((settlement) => settlement.id !== id));
   };
 
+  const ChartData = {
+    labels: ["木材", "レンガ", "小麦", "鉄", "羊毛"],
+    datasets: [
+      {
+        label: "資源取得確率",
+        data: [1, 4, 2, 4, 6],
+        backgroundColor: [
+          "rgba(255, 99, 132, 0.2)",
+          "rgba(54, 162, 235, 0.2)",
+          "rgba(255, 206, 86, 0.2)",
+          "rgba(75, 192, 192, 0.2)",
+          "rgba(153, 102, 255, 0.2)",
+        ],
+        borderColor: [
+          "rgba(255, 99, 132, 1)",
+          "rgba(54, 162, 235, 1)",
+          "rgba(255, 206, 86, 1)",
+          "rgba(75, 192, 192, 1)",
+          "rgba(153, 102, 255, 1)",
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: "各資源の取得確率",
+      },
+    },
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: "資源",
+        },
+      },
+      y: {
+        beginAtZero: true,
+        title: {
+          display: true,
+          text: "確率",
+        },
+      },
+    },
+  };
+
   return (
     <main className="">
       <header className="bg-blue-200 p-4 flex justify-around mb-4">
@@ -178,9 +244,9 @@ export default function Home() {
         </div>
       </header>
 
-      <div className="flex h-screen justify-center ml-4">
+      <div className="flex h-screen justify-center">
         {/* 左側 */}
-        <div className="w-3/5 bg-red-100 p-4">
+        <div className="w-1/2 bg-red-100 p-4">
           <div>
             あとで説明文を追加Lorem ipsum dolor sit amet consectetur adipisicing
             elit. Excepturi eos quibusdam illo at alias corrupti voluptas
@@ -291,6 +357,7 @@ export default function Home() {
             ))}
           </div>
         </div>
+
         {/* 右側 */}
         <div className="w-1/2 bg-green-100">
           {/* S, A, Bなどのランク分けもできると良き */}
@@ -305,6 +372,7 @@ export default function Home() {
           </div>
           <div className="text-2xl flex justify-center">
             ここに各資源のグラフを表示
+            <Bar data={ChartData} options={options} />
           </div>
         </div>
       </div>
