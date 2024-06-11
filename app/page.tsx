@@ -51,12 +51,14 @@ export default function Home() {
     useState<Settlement[]>(initialSettlements);
   const [probability, setProbability] = useState<number>(0);
   const [expectedValue, setExpectedValue] = useState<number>(0);
-  const resourseSelect = useState<string[]>([]);
+  const [expectedValueForEachResource, setExpectedValueForEachResource] =
+    useState<number[]>([]);
 
   useEffect(() => {
     console.log("settlements = ", settlements);
     handleCalculateExpectation();
     handleCalculateProbability();
+    handleCalculateExpectationForEachResource();
   }, [settlements]);
 
   const numberToProbability = (number: number) => {
@@ -101,6 +103,53 @@ export default function Home() {
       sum += numberToProbability(number);
     });
     setProbability(sum);
+  };
+
+  const handleCalculateExpectationForEachResource = () => {
+    const set = new Set<number>();
+    settlements.forEach((settlement) => {
+      settlement.numbers.forEach((number) => {
+        if (number !== 0) set.add(number);
+      });
+    });
+    let sum = 0;
+    const expectedValueForEachResource: number[] = [0, 0, 0, 0, 0];
+    set.forEach((number) => {
+      sum += numberToProbability(number);
+      settlements.forEach((settlement) => {
+        settlement.numbers.forEach((num, index) => {
+          if (num === number) {
+            if (settlement.resources[index] === "wood") {
+              expectedValueForEachResource[0] += numberToProbability(number);
+              if (settlement.upgraded) {
+                expectedValueForEachResource[0] += numberToProbability(number);
+              }
+            } else if (settlement.resources[index] === "bricks") {
+              expectedValueForEachResource[1] += numberToProbability(number);
+              if (settlement.upgraded) {
+                expectedValueForEachResource[1] += numberToProbability(number);
+              }
+            } else if (settlement.resources[index] === "wheat") {
+              expectedValueForEachResource[2] += numberToProbability(number);
+              if (settlement.upgraded) {
+                expectedValueForEachResource[2] += numberToProbability(number);
+              }
+            } else if (settlement.resources[index] === "iron") {
+              expectedValueForEachResource[3] += numberToProbability(number);
+              if (settlement.upgraded) {
+                expectedValueForEachResource[3] += numberToProbability(number);
+              }
+            } else if (settlement.resources[index] === "wool") {
+              expectedValueForEachResource[4] += numberToProbability(number);
+              if (settlement.upgraded) {
+                expectedValueForEachResource[4] += numberToProbability(number);
+              }
+            }
+          }
+        });
+      });
+    });
+    setExpectedValueForEachResource(expectedValueForEachResource);
   };
 
   const handleCreateSettlement = () => {
@@ -185,7 +234,7 @@ export default function Home() {
     datasets: [
       {
         label: "資源取得確率",
-        data: [1, 4, 2, 4, 6],
+        data: expectedValueForEachResource,
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
           "rgba(54, 162, 235, 0.2)",
@@ -206,28 +255,16 @@ export default function Home() {
   };
 
   const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top",
-      },
-      title: {
-        display: true,
-        text: "各資源の取得確率",
-      },
-    },
     scales: {
-      x: {
-        title: {
-          display: true,
-          text: "資源",
-        },
-      },
       y: {
-        beginAtZero: true,
         title: {
           display: true,
-          text: "確率",
+          text: "期待値",
+        },
+        ticks: {
+          max: 20,
+          stepSize: 10,
+          beginAtZero: true,
         },
       },
     },
