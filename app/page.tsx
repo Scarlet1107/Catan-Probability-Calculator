@@ -28,14 +28,67 @@ export default function Home() {
     },
   ];
 
-  const [settlements, setSettlements] = useState<Settlement[]>(initialSettlements);
-  const [probability, setProbability] = useState<number>();
-  const [expectedValue, setExpectedValue] = useState<number>();
+  const [settlements, setSettlements] =
+    useState<Settlement[]>(initialSettlements);
+  const [probability, setProbability] = useState<number>(0);
+  const [expectedValue, setExpectedValue] = useState<number>(0);
   const resourseSelect = useState<string[]>([]);
 
   useEffect(() => {
     console.log("settlements = ", settlements);
+    handleCalculateExpectation();
+    handleCalculateProbability();
   }, [settlements]);
+
+  //   const handleCalculateProbability = () => {
+  //     settlements.forEach((settlement) => {
+
+  //     }
+  // }
+
+  const numberToProbability = (number: number) => {
+    if (number === 2 || number === 12) return 1;
+    else if (number === 3 || number === 11) return 2;
+    else if (number === 4 || number === 10) return 3;
+    else if (number === 5 || number === 9) return 4;
+    else if (number === 6 || number === 8) return 5;
+    else return 0;
+  };
+
+  const handleCalculateExpectation = () => {
+    // 期待値の計算
+    let sum = 0;
+    settlements.forEach((settlement) => {
+      settlement.numbers.forEach((number, index) => {
+        if (
+          settlement.resources[index] !== "" &&
+          settlement.upgraded === false
+        ) {
+          sum += numberToProbability(number);
+        } else if (
+          settlement.resources[index] !== "" &&
+          settlement.upgraded === true
+        ) {
+          sum += numberToProbability(number) * 2;
+        }
+      });
+      setExpectedValue(sum);
+    });
+  };
+
+  const handleCalculateProbability = () => {
+    const set = new Set<number>();
+    settlements.forEach((settlement) => {
+      settlement.numbers.forEach((number) => {
+        if (number !== 0) set.add(number);
+      });
+    });
+    let sum = 0;
+    set.forEach((number) => {
+      sum += numberToProbability(number);
+    });
+    setProbability(sum);
+  };
 
   const handleCreateSettlement = () => {
     setSettlements([
@@ -51,47 +104,67 @@ export default function Home() {
   };
 
   const handleResourceChange = (id: number, index: number, value: string) => {
-    setSettlements(settlements.map(settlement =>
-      settlement.id === id ? {
-        ...settlement,
-        resources: settlement.resources.map((res, idx) => idx === index ? value : res) as [string, string, string]
-      } : settlement
-    ));
+    setSettlements(
+      settlements.map((settlement) =>
+        settlement.id === id
+          ? {
+              ...settlement,
+              resources: settlement.resources.map((res, idx) =>
+                idx === index ? value : res
+              ) as [string, string, string],
+            }
+          : settlement
+      )
+    );
   };
 
   const handleNumberChange = (id: number, index: number, value: number) => {
-    setSettlements(settlements.map(settlement =>
-      settlement.id === id ? {
-        ...settlement,
-        numbers: settlement.numbers.map((num, idx) => idx === index ? value : num) as [number, number, number]
-      } : settlement
-    ));
+    setSettlements(
+      settlements.map((settlement) =>
+        settlement.id === id
+          ? {
+              ...settlement,
+              numbers: settlement.numbers.map((num, idx) =>
+                idx === index ? value : num
+              ) as [number, number, number],
+            }
+          : settlement
+      )
+    );
   };
 
   const handleUpgradeSettlement = (id: number) => {
-    setSettlements(settlements.map(settlement =>
-      settlement.id === id ? {
-        ...settlement,
-        upgraded: true
-      } : settlement
-    ));
-  }
+    setSettlements(
+      settlements.map((settlement) =>
+        settlement.id === id
+          ? {
+              ...settlement,
+              upgraded: true,
+            }
+          : settlement
+      )
+    );
+  };
 
   const handleDowngrageSettlement = (id: number) => {
     const confirmed = window.confirm("本当に開拓地に戻しますか？");
     if (confirmed)
-      setSettlements(settlements.map(settlement =>
-        settlement.id === id ? {
-          ...settlement,
-          upgraded: false
-        } : settlement
-      ));
-  }
+      setSettlements(
+        settlements.map((settlement) =>
+          settlement.id === id
+            ? {
+                ...settlement,
+                upgraded: false,
+              }
+            : settlement
+        )
+      );
+  };
 
   const handleDeleteSettlement = (id: number) => {
     const confirmed = window.confirm("本当に開拓地を削除しますか？");
     if (confirmed)
-      setSettlements(settlements.filter(settlement => settlement.id !== id));
+      setSettlements(settlements.filter((settlement) => settlement.id !== id));
   };
 
   return (
@@ -116,10 +189,7 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-5 gap-4 place-items-center mt-6">
-            <button
-              className="button mb-2"
-              onClick={handleCreateSettlement}
-            >
+            <button className="button mb-2" onClick={handleCreateSettlement}>
               開拓地を追加
             </button>
             <div>資源１</div>
@@ -136,7 +206,11 @@ export default function Home() {
                   value={settlement.name}
                   onChange={(e) => {
                     const name = e.target.value;
-                    setSettlements(settlements.map(s => s.id === settlement.id ? { ...s, name } : s));
+                    setSettlements(
+                      settlements.map((s) =>
+                        s.id === settlement.id ? { ...s, name } : s
+                      )
+                    );
                   }}
                   className="border border-gray-300 rounded px-4 py-2 mb-2 h-1/2 w-4/5 place-self-center"
                   placeholder="Settlement Name"
@@ -146,7 +220,13 @@ export default function Home() {
                   <div key={index} className="">
                     <select
                       value={resource}
-                      onChange={(e) => handleResourceChange(settlement.id, index, e.target.value)}
+                      onChange={(e) =>
+                        handleResourceChange(
+                          settlement.id,
+                          index,
+                          e.target.value
+                        )
+                      }
                       className="w-4/5 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                     >
                       <option value=""></option>
@@ -158,7 +238,13 @@ export default function Home() {
                     </select>
                     <select
                       value={settlement.numbers[index]}
-                      onChange={(e) => handleNumberChange(settlement.id, index, Number(e.target.value))}
+                      onChange={(e) =>
+                        handleNumberChange(
+                          settlement.id,
+                          index,
+                          Number(e.target.value)
+                        )
+                      }
                       className="w-4/5 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                     >
                       <option value=""></option>
@@ -168,24 +254,32 @@ export default function Home() {
                           <option
                             key={number}
                             value={number}
-                            className={`${number === 6 || number === 8 ? 'text-red-500' : ''}`}
+                            className={`${
+                              number === 6 || number === 8 ? "text-red-500" : ""
+                            }`}
                           >
                             {number}
                           </option>
                         ))}
                     </select>
-
-
                   </div>
                 ))}
                 <div className="flex flex-col w-3/4 justify-center space-y-2">
-                  {settlement.upgraded ? <button className="bg-green-500 hover:bg-green-600 text-white font-bold p-2 rounded" onClick={() => handleDowngrageSettlement(settlement.id)}>都市</button> :
+                  {settlement.upgraded ? (
+                    <button
+                      className="bg-green-500 hover:bg-green-600 text-white font-bold p-2 rounded"
+                      onClick={() => handleDowngrageSettlement(settlement.id)}
+                    >
+                      都市
+                    </button>
+                  ) : (
                     <button
                       className="button"
-                      onClick={() => handleUpgradeSettlement(settlement.id)}>
+                      onClick={() => handleUpgradeSettlement(settlement.id)}
+                    >
                       都市化
                     </button>
-                  }
+                  )}
                   <button
                     className="bg-red-500 hover:bg-red-600 text-white font-bold p-2 rounded"
                     onClick={() => handleDeleteSettlement(settlement.id)}
@@ -194,15 +288,17 @@ export default function Home() {
                   </button>
                 </div>
               </div>
-
             ))}
           </div>
         </div>
         {/* 右側 */}
         <div className="w-1/2 bg-green-100">
+          {/* S, A, Bなどのランク分けもできると良き */}
           <div className="text-2xl flex justify-center">
-            現在の資源取得確率と期待値を計算しA, B,
-            Cなどのランクを表示(デザインいい感じにしたい)
+            期待値 : {expectedValue}
+          </div>
+          <div className="text-2xl flex justify-center">
+            資源取得確率 : {probability} / 36
           </div>
           <div className="text-2xl flex justify-center">
             ここにアドバイスを表示（どこに開拓地を置くべきか、どこをアップグレードするべきか）
