@@ -168,7 +168,7 @@ export default function Home() {
                           <option
                             key={number}
                             value={number}
-                            className={`${number === 6 || number === 8 ? 'text-red-500 hover:text-red-500' : ''}`}
+                            className={`${number === 6 || number === 8 ? 'text-red-500' : ''}`}
                           >
                             {number}
                           </option>
@@ -179,15 +179,15 @@ export default function Home() {
                   </div>
                 ))}
                 <div className="flex flex-col w-3/4 justify-center space-y-2">
-                  {settlement.upgraded ? <button className="bg-green-500 text-white font-bold p-2 rounded" onClick={() => handleDowngrageSettlement(settlement.id)}>都市</button> :
+                  {settlement.upgraded ? <button className="bg-green-500 hover:bg-green-600 text-white font-bold p-2 rounded" onClick={() => handleDowngrageSettlement(settlement.id)}>都市</button> :
                     <button
-                      className="bg-blue-500 text-white font-bold p-2 rounded"
+                      className="button"
                       onClick={() => handleUpgradeSettlement(settlement.id)}>
                       都市化
                     </button>
                   }
                   <button
-                    className="bg-red-500 text-white font-bold p-2 rounded"
+                    className="bg-red-500 hover:bg-red-600 text-white font-bold p-2 rounded"
                     onClick={() => handleDeleteSettlement(settlement.id)}
                   >
                     消
