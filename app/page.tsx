@@ -50,7 +50,9 @@ export default function Home() {
   const [settlements, setSettlements] =
     useState<Settlement[]>(initialSettlements);
   const [probability, setProbability] = useState<number>(0);
+  const [probabilityRank, setProbabilityRank] = useState<string>("");
   const [expectedValue, setExpectedValue] = useState<number>(0);
+  const [expectedValueRank, setExpectedValueRank] = useState<string>("");
   const [expectedValueForEachResource, setExpectedValueForEachResource] =
     useState<number[]>([]);
 
@@ -68,6 +70,24 @@ export default function Home() {
     else if (number === 5 || number === 9) return 4;
     else if (number === 6 || number === 8) return 5;
     else return 0;
+  };
+
+  const probabilityToRank = (probability: number) => {
+    if (probability >= 26) return "S";
+    else if (probability >= 23) return "A";
+    else if (probability >= 19) return "B";
+    else if (probability >= 16) return "C";
+    else if (probability >= 13) return "D";
+    else return "E";
+  };
+
+  const expectationToRank = (expectation: number) => {
+    if (expectation >= 50) return "S";
+    else if (expectation >= 40) return "A";
+    else if (expectation >= 35) return "B";
+    else if (expectation >= 26) return "C";
+    else if (expectation >= 18) return "D";
+    else return "E";
   };
 
   const handleCalculateExpectation = () => {
@@ -88,21 +108,25 @@ export default function Home() {
         }
       });
       setExpectedValue(sum);
+      setExpectedValueRank(expectationToRank(sum));
     });
   };
+
 
   const handleCalculateProbability = () => {
     const set = new Set<number>();
     settlements.forEach((settlement) => {
-      settlement.numbers.forEach((number) => {
-        if (number !== 0) set.add(number);
-      });
+      for (let i = 0; i < settlement.numbers.length; i++) {
+        if (settlement.numbers[i] !== 0 && settlement.resources[i] !== "")
+          set.add(settlement.numbers[i]);
+      }
     });
     let sum = 0;
     set.forEach((number) => {
       sum += numberToProbability(number);
     });
     setProbability(sum);
+    setProbabilityRank(probabilityToRank(sum));
   };
 
   const handleCalculateExpectationForEachResource = () => {
@@ -259,7 +283,6 @@ export default function Home() {
       y: {
         title: {
           display: true,
-          text: "期待値",
         },
         ticks: {
           max: 20,
@@ -398,17 +421,16 @@ export default function Home() {
         {/* 右側 */}
         <div className="w-1/2 bg-green-100">
           {/* S, A, Bなどのランク分けもできると良き */}
-          <div className="text-2xl flex justify-center">
-            期待値 : {expectedValue}
+          <div className="text-2xl">
+            期待値 : {expectedValue} (ランク{expectedValueRank})
           </div>
-          <div className="text-2xl flex justify-center">
-            資源取得確率 : {probability} / 36
+          <div className="text-2xl">
+            資源取得確率 : {probability} / 36 (ランク{probabilityRank})
           </div>
           <div className="text-2xl flex justify-center">
             ここにアドバイスを表示（どこに開拓地を置くべきか、どこをアップグレードするべきか）
           </div>
           <div className="text-2xl flex justify-center">
-            ここに各資源のグラフを表示
             <Bar data={ChartData} options={options} />
           </div>
         </div>
