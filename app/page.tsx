@@ -55,12 +55,15 @@ export default function Home() {
   const [expectedValueRank, setExpectedValueRank] = useState<string>("");
   const [expectedValueForEachResource, setExpectedValueForEachResource] =
     useState<number[]>([]);
+  const set = new Set<number>();
+  const [recommendedNumbers, setRecommendedNumbers] = useState<number[]>([]);
 
   useEffect(() => {
     console.log("settlements = ", settlements);
     handleCalculateExpectation();
     handleCalculateProbability();
     handleCalculateExpectationForEachResource();
+    UpdateRecommendedNumber();
   }, [settlements]);
 
   const numberToProbability = (number: number) => {
@@ -91,7 +94,6 @@ export default function Home() {
   };
 
   const handleCalculateExpectation = () => {
-    // 期待値の計算
     let sum = 0;
     settlements.forEach((settlement) => {
       settlement.numbers.forEach((number, index) => {
@@ -112,15 +114,18 @@ export default function Home() {
     });
   };
 
-
-  const handleCalculateProbability = () => {
-    const set = new Set<number>();
+  const updateSet = () => {
+    set.clear();
     settlements.forEach((settlement) => {
       for (let i = 0; i < settlement.numbers.length; i++) {
         if (settlement.numbers[i] !== 0 && settlement.resources[i] !== "")
           set.add(settlement.numbers[i]);
       }
     });
+  };
+
+  const handleCalculateProbability = () => {
+    updateSet();
     let sum = 0;
     set.forEach((number) => {
       sum += numberToProbability(number);
@@ -130,12 +135,7 @@ export default function Home() {
   };
 
   const handleCalculateExpectationForEachResource = () => {
-    const set = new Set<number>();
-    settlements.forEach((settlement) => {
-      settlement.numbers.forEach((number) => {
-        if (number !== 0) set.add(number);
-      });
-    });
+    updateSet();
     let sum = 0;
     const expectedValueForEachResource: number[] = [0, 0, 0, 0, 0];
     set.forEach((number) => {
@@ -174,6 +174,15 @@ export default function Home() {
       });
     });
     setExpectedValueForEachResource(expectedValueForEachResource);
+  };
+
+  const UpdateRecommendedNumber = () => {
+    // ここでどの数字がおすすめか計算する
+    let numbers = [2, 3, 4, 5, 6, 8, 9, 10, 11, 12];
+    numbers = numbers.filter((number) => !set.has(number));
+    numbers.sort((a, b) => numberToProbability(b) - numberToProbability(a));
+    numbers = numbers.slice(0, 3);
+    setRecommendedNumbers(numbers);
   };
 
   const handleCreateSettlement = () => {
@@ -257,7 +266,7 @@ export default function Home() {
     labels: ["木材", "レンガ", "小麦", "鉄", "羊毛"],
     datasets: [
       {
-        label: "資源取得確率",
+        label: "資源取得量",
         data: expectedValueForEachResource,
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
@@ -429,6 +438,9 @@ export default function Home() {
           </div>
           <div className="text-2xl flex justify-center">
             ここにアドバイスを表示（どこに開拓地を置くべきか、どこをアップグレードするべきか）
+          </div>
+          <div className="text-2xl">
+            おすすめの数字 : {recommendedNumbers.join(", ")}
           </div>
           <div className="text-2xl flex justify-center">
             <Bar data={ChartData} options={options} />
