@@ -317,10 +317,7 @@ export default function Home() {
         {/* 左側 */}
         <div className="w-1/2 bg-red-100 p-4">
           <div>
-            あとで説明文を追加Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Excepturi eos quibusdam illo at alias corrupti voluptas
-            numquam id rerum, eaque explicabo labore quasi doloremque nisi sint
-            consequuntur nam odit veniam.
+            開拓地の情報から、資源取得確率や期待値を計算できます。
           </div>
 
           <div className="grid grid-cols-5 gap-4 place-items-center mt-6">
@@ -435,9 +432,6 @@ export default function Home() {
           </div>
           <div className="text-2xl">
             資源取得確率 : {probability} / 36 (ランク{probabilityRank})
-          </div>
-          <div className="text-2xl flex justify-center">
-            ここにアドバイスを表示（どこに開拓地を置くべきか、どこをアップグレードするべきか）
           </div>
           <div className="text-2xl">
             おすすめの数字 : {recommendedNumbers.join(", ")}
