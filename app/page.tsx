@@ -353,25 +353,25 @@ export default function Home() {
     <main>
       <header className="bg-blue-200 p-4 flex justify-around mb-4">
         <div className="text-3xl font-medium">カタン確率計算アプリ</div>
-        <div className="flex space-x-2">
+        {/* <div className="flex space-x-2">
           <p>日本語</p>
           <p>/</p>
           <p>English</p>
-        </div>
+        </div> */}
       </header>
 
       <div className="flex h-screen justify-center">
         {/* 左側 */}
-        <div className="w-1/2 bg-red-100 p-4">
+        <div className="w-1/2 bg-red-50 p-4">
           <div>開拓地の情報から、資源取得確率や期待値を計算できます。</div>
 
           <div className="grid grid-cols-5 gap-4 place-items-center mt-6">
             <button className="button mb-2" onClick={handleCreateSettlement}>
               開拓地を追加
             </button>
-            <div>資源１</div>
-            <div>資源２</div>
-            <div>資源３</div>
+            <div className="text-xl font-medium">資源１</div>
+            <div className="text-xl font-medium">資源２</div>
+            <div className="text-xl font-medium">資源３</div>
             <button className="w-3/5 mb-4 bg-gray-500 hover:bg-red-700 text-white font-bold p-2 rounded" onClick={() => handleResetSettlements()}>
               初期化
             </button>
@@ -472,7 +472,7 @@ export default function Home() {
         </div>
 
         {/* 右側 */}
-        <div className="w-1/2 bg-green-100">
+        <div className="w-1/2 bg-green-50">
           {/* S, A, Bなどのランク分けもできると良き */}
           <div className="text-2xl m-4">
             <InfoTooltip
