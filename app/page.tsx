@@ -25,7 +25,7 @@ ChartJS.register(
 export default function Home() {
   type Settlement = {
     name: string;
-    id: number;
+    id: string;
     resources: [string, string, string];
     numbers: [number, number, number];
     upgraded: boolean;
@@ -62,7 +62,20 @@ export default function Home() {
     useState<string>("");
 
   useEffect(() => {
+    const savedSettlements = localStorage.getItem("settlements");
+    console.log("savedSettlements = ", savedSettlements);
+    if (savedSettlements !== null) {
+      console.log(
+        "JSON.parse(savedSettlements) = ",
+        JSON.parse(savedSettlements)
+      );
+      setSettlements(JSON.parse(savedSettlements));
+    }
+  }, []);
+
+  useEffect(() => {
     console.log("settlements = ", settlements);
+    localStorage.setItem("settlements", JSON.stringify(settlements));
     handleCalculateExpectation();
     handleCalculateProbability();
     handleCalculateExpectationForEachResource();
@@ -224,7 +237,7 @@ export default function Home() {
     ]);
   };
 
-  const handleResourceChange = (id: number, index: number, value: string) => {
+  const handleResourceChange = (id: string, index: number, value: string) => {
     setSettlements(
       settlements.map((settlement) =>
         settlement.id === id
@@ -239,7 +252,7 @@ export default function Home() {
     );
   };
 
-  const handleNumberChange = (id: number, index: number, value: number) => {
+  const handleNumberChange = (id: string, index: number, value: number) => {
     setSettlements(
       settlements.map((settlement) =>
         settlement.id === id
@@ -254,7 +267,7 @@ export default function Home() {
     );
   };
 
-  const handleUpgradeSettlement = (id: number) => {
+  const handleUpgradeSettlement = (id: string) => {
     setSettlements(
       settlements.map((settlement) =>
         settlement.id === id
@@ -267,7 +280,7 @@ export default function Home() {
     );
   };
 
-  const handleDowngrageSettlement = (id: number) => {
+  const handleDowngrageSettlement = (id: string) => {
     const confirmed = window.confirm("本当に開拓地に戻しますか？");
     if (confirmed)
       setSettlements(
@@ -282,7 +295,7 @@ export default function Home() {
       );
   };
 
-  const handleDeleteSettlement = (id: number) => {
+  const handleDeleteSettlement = (id: string) => {
     const confirmed = window.confirm("本当に開拓地を削除しますか？");
     if (confirmed)
       setSettlements(settlements.filter((settlement) => settlement.id !== id));
@@ -329,7 +342,7 @@ export default function Home() {
   };
 
   return (
-    <main className="">
+    <main>
       <header className="bg-blue-200 p-4 flex justify-around mb-4">
         <div className="text-3xl font-medium">カタン確率計算アプリ</div>
         <div className="flex space-x-2">
