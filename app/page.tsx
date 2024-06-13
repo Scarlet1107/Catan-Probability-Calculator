@@ -321,7 +321,7 @@ export default function Home() {
         },
         ticks: {
           max: 20,
-          stepSize: 10,
+          stepSize: 5,
           beginAtZero: true,
         },
       },
