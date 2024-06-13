@@ -351,7 +351,7 @@ export default function Home() {
 
   return (
     <main className="bg-custom-bg bg-cover bg-center">
-      <header className="bg-blue-200 opacity-80 p-4 flex justify-around">
+      <header className="bg-blue-200 p-4 flex justify-around">
         <div className="text-3xl font-medium">カタン確率計算アプリ</div>
         {/* <div className="flex space-x-2">
           <p>日本語</p>
@@ -360,7 +360,7 @@ export default function Home() {
         </div> */}
       </header>
 
-      <div className="flex h-screen justify-center bg-white opacity-75">
+      <div className="flex h-screen justify-center bg-white">
         {/* 左側 */}
         <div className="w-1/2 p-4">
           <div>開拓地の情報から、資源取得確率や期待値を計算できます。</div>
