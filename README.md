@@ -1,38 +1,30 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# カタン確率計算アプリ
 
-## Getting Started
+## 概要
 
-First, run the development server:
+「カタン確率計算アプリ」は、ボードゲーム「カタン」を遊ぶ際に、開拓地の情報から資源の取得確率と期待値を計算するツールです。
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+![Catanの画像](./public/Catan.jpg)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## デモ
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+以下のように動作します。
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+![スクリーンショット](./public/Demo.png)
 
-## Learn More
+## 説明
 
-To learn more about Next.js, take a look at the following resources:
+画面左半分に開拓地の情報を入力します。tab 移動と矢印をうまく使うと素早く入力できておすすめです。
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+「開拓地を追加」：新たな開拓地を追加します。開拓地の名前は自動的に「開拓地ｎ」(nは自然数)になります。  
+「都市化」：開拓地を都市にアップグレードします。  
+「消」：開拓地を削除します。  
+「初期化」：すべての情報を初期化します。  
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-
+また開拓地の名前は変更することができます。  
+ 
+画面右半分には入力された情報を元に、確率や期待値などが表示されます。  
+「期待値」：６面ダイス２つの和の組み合わせ、３６通りがすべて出たときもらえる資源の量を表示します。  
+「資源取得確率」：ダイスを振ったとき、資源が１枚以上もらえる確率を表示します。  
+「おすすめの数字」：まだ開拓地をおいていない数字の中で価値の高いもの上位３つをおすすめとして表示します。  
+「アップグレードにおすすめの開拓地」：数字から計算して最も期待値が大きくなる開拓地をおすすめとして表示します。  
