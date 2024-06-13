@@ -301,6 +301,14 @@ export default function Home() {
       setSettlements(settlements.filter((settlement) => settlement.id !== id));
   };
 
+  const handleResetSettlements = () => {
+    const confirmed = window.confirm("本当に初期化を行いますか？？");
+    if (confirmed) {
+      setSettlements(initialSettlements);
+      localStorage.removeItem("settlements");
+    }
+  };
+
   const ChartData = {
     labels: ["木材", "レンガ", "小麦", "鉄", "羊毛"],
     datasets: [
@@ -364,7 +372,9 @@ export default function Home() {
             <div>資源１</div>
             <div>資源２</div>
             <div>資源３</div>
-            <div></div>
+            <button className="w-3/5 mb-4 bg-gray-500 hover:bg-red-700 text-white font-bold p-2 rounded" onClick={() => handleResetSettlements()}>
+              初期化
+            </button>
           </div>
           <div>
             {/* ここをmapで複数表示する */}
