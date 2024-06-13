@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import InfoTooltip from './InfoTooltip';
+import InfoTooltip from "./InfoTooltip";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -58,6 +58,8 @@ export default function Home() {
     useState<number[]>([]);
   const set = new Set<number>();
   const [recommendedNumbers, setRecommendedNumbers] = useState<number[]>([]);
+  const [recommendedSettlementName, setRecommendedSettlementName] =
+    useState<string>("");
 
   useEffect(() => {
     console.log("settlements = ", settlements);
@@ -65,6 +67,7 @@ export default function Home() {
     handleCalculateProbability();
     handleCalculateExpectationForEachResource();
     UpdateRecommendedNumber();
+    searchRecommendedSettlement();
   }, [settlements]);
 
   const numberToProbability = (number: number) => {
@@ -77,7 +80,7 @@ export default function Home() {
   };
 
   const probabilityToRank = (probability: number) => {
-    if (probability >= 26) return "S";
+    if (probability >= 27) return "S";
     else if (probability >= 23) return "A";
     else if (probability >= 19) return "B";
     else if (probability >= 16) return "C";
@@ -92,6 +95,16 @@ export default function Home() {
     else if (expectation >= 26) return "C";
     else if (expectation >= 18) return "D";
     else return "E";
+  };
+
+  const updateSet = () => {
+    set.clear();
+    settlements.forEach((settlement) => {
+      for (let i = 0; i < settlement.numbers.length; i++) {
+        if (settlement.numbers[i] !== 0 && settlement.resources[i] !== "")
+          set.add(settlement.numbers[i]);
+      }
+    });
   };
 
   const handleCalculateExpectation = () => {
@@ -112,16 +125,6 @@ export default function Home() {
       });
       setExpectedValue(sum);
       setExpectedValueRank(expectationToRank(sum));
-    });
-  };
-
-  const updateSet = () => {
-    set.clear();
-    settlements.forEach((settlement) => {
-      for (let i = 0; i < settlement.numbers.length; i++) {
-        if (settlement.numbers[i] !== 0 && settlement.resources[i] !== "")
-          set.add(settlement.numbers[i]);
-      }
     });
   };
 
@@ -184,6 +187,28 @@ export default function Home() {
     numbers.sort((a, b) => numberToProbability(b) - numberToProbability(a));
     numbers = numbers.slice(0, 3);
     setRecommendedNumbers(numbers);
+  };
+
+  // アップグレードにおすすめの開拓地を探す
+  const searchRecommendedSettlement = () => {
+    let max = 0;
+    let maxSettlementName = "";
+    settlements.forEach((settlement) => {
+      if (settlement.upgraded) return;
+      else {
+        let sum = 0;
+        settlement.numbers.forEach((number, index) => {
+          if (settlement.resources[index] !== "") {
+            sum += numberToProbability(number);
+          }
+          if (sum > max) {
+            max = sum;
+            maxSettlementName = settlement.name;
+          }
+        });
+      }
+    });
+    setRecommendedSettlementName(maxSettlementName);
   };
 
   const handleCreateSettlement = () => {
@@ -317,9 +342,7 @@ export default function Home() {
       <div className="flex h-screen justify-center">
         {/* 左側 */}
         <div className="w-1/2 bg-red-100 p-4">
-          <div>
-            開拓地の情報から、資源取得確率や期待値を計算できます。
-          </div>
+          <div>開拓地の情報から、資源取得確率や期待値を計算できます。</div>
 
           <div className="grid grid-cols-5 gap-4 place-items-center mt-6">
             <button className="button mb-2" onClick={handleCreateSettlement}>
@@ -346,7 +369,7 @@ export default function Home() {
                     );
                   }}
                   className="border border-gray-300 rounded px-4 py-2 mb-2 h-1/2 w-4/5 place-self-center"
-                  placeholder="Settlement Name"
+                  placeholder="開拓地"
                 />
 
                 {settlement.resources.map((resource, index) => (
@@ -428,14 +451,36 @@ export default function Home() {
         {/* 右側 */}
         <div className="w-1/2 bg-green-100">
           {/* S, A, Bなどのランク分けもできると良き */}
-          <div className="text-2xl">
-            期待値<InfoTooltip text="?" tooltipText="期待値は、確率分布における値の平均を指します。" /> : {expectedValue} (ランク{expectedValueRank})
+          <div className="text-2xl m-4">
+            <InfoTooltip
+              text="期待値"
+              tooltipText="2から12の36通りの数字が出たときに、何枚の資源がもらえるかを表します"
+            />{" "}
+            : {expectedValue} (ランク{expectedValueRank})
           </div>
-          <div className="text-2xl">
-            資源取得確率 : {probability} / 36 (ランク{probabilityRank})
+          <div className="text-2xl m-4">
+            <InfoTooltip
+              text="資源取得確率"
+              tooltipText="ダイスを振ったときに資源が１枚以上もらえる確率を表します"
+            />
+            <span>
+              {" "}
+              : {probability} / 36 (ランク{probabilityRank})
+            </span>
           </div>
-          <div className="text-2xl">
-            おすすめの数字 : {recommendedNumbers.join(", ")}
+          <div className="text-2xl m-4">
+            <InfoTooltip
+              text="おすすめの数字"
+              tooltipText="おすすめの開拓地の数字の場所を表します"
+            />{" "}
+            : {recommendedNumbers.join(", ")}
+          </div>
+          <div className="text-2xl m-4">
+            <InfoTooltip
+              text="アップグレードにおすすめの開拓地"
+              tooltipText="資源取得量からアップグレードにおすすめの開拓地を計算します。資源取得量のみを考慮しているのでお気をつけください"
+            />{" "}
+            : 「{recommendedSettlementName}」
           </div>
           <div className="text-2xl flex justify-center">
             <Bar data={ChartData} options={options} />

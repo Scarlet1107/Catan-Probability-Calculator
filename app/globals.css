@@ -36,6 +36,28 @@ body {
   }
 }
 
+@layer components {
+  .tooltip {
+    position: relative;
+    background-color: black; 
+    color: white;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    z-index: 1; /* ツールチップのテキスト部分を前面に */
+  }
+  .tooltip::after {
+    content: "";
+    position: absolute;
+    bottom: 100%; /* Tooltipの下に矢印を配置 */
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 0.5rem;
+    border-style: solid;
+    border-color: transparent transparent #2d3748 transparent;
+    z-index: -1; /* 矢印部分を背面に */
+  }
+}
+
 button {
   @apply bg-blue-500 hover:bg-blue-600 text-white font-bold p-2 rounded;
 }
