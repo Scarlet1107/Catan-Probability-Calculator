@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import InfoTooltip from './InfoTooltip';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -428,7 +429,7 @@ export default function Home() {
         <div className="w-1/2 bg-green-100">
           {/* S, A, Bなどのランク分けもできると良き */}
           <div className="text-2xl">
-            期待値 : {expectedValue} (ランク{expectedValueRank})
+            期待値<InfoTooltip text="?" tooltipText="期待値は、確率分布における値の平均を指します。" /> : {expectedValue} (ランク{expectedValueRank})
           </div>
           <div className="text-2xl">
             資源取得確率 : {probability} / 36 (ランク{probabilityRank})
