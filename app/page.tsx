@@ -302,7 +302,7 @@ export default function Home() {
   };
 
   const handleResetSettlements = () => {
-    const confirmed = window.confirm("本当に初期化を行いますか？？");
+    const confirmed = window.confirm("本当に初期化を行いますか？");
     if (confirmed) {
       setSettlements(initialSettlements);
       localStorage.removeItem("settlements");
@@ -372,7 +372,10 @@ export default function Home() {
             <div className="text-xl font-medium">資源１</div>
             <div className="text-xl font-medium">資源２</div>
             <div className="text-xl font-medium">資源３</div>
-            <button className="w-3/5 mb-4 bg-gray-500 hover:bg-red-700 text-white font-bold p-2 rounded" onClick={() => handleResetSettlements()}>
+            <button
+              className="w-3/5 mb-4 bg-gray-500 hover:bg-red-700 text-white font-bold p-2 rounded"
+              onClick={() => handleResetSettlements()}
+            >
               初期化
             </button>
           </div>
