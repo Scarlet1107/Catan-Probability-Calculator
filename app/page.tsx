@@ -76,10 +76,10 @@ export default function Home() {
   useEffect(() => {
     console.log("settlements = ", settlements);
     localStorage.setItem("settlements", JSON.stringify(settlements));
-    handleCalculateExpectation();
-    handleCalculateProbability();
-    handleCalculateExpectationForEachResource();
-    UpdateRecommendedNumber();
+    calculateExpectation();
+    calculateProbability();
+    calculateResourceExpectations();
+    updateRecommendedNumbers();
     searchRecommendedSettlement();
   }, [settlements]);
 
@@ -120,7 +120,7 @@ export default function Home() {
     });
   };
 
-  const handleCalculateExpectation = () => {
+  const calculateExpectation = () => {
     let sum = 0;
     settlements.forEach((settlement) => {
       settlement.numbers.forEach((number, index) => {
@@ -141,7 +141,7 @@ export default function Home() {
     });
   };
 
-  const handleCalculateProbability = () => {
+  const calculateProbability = () => {
     updateSet();
     let sum = 0;
     set.forEach((number) => {
@@ -151,7 +151,7 @@ export default function Home() {
     setProbabilityRank(probabilityToRank(sum));
   };
 
-  const handleCalculateExpectationForEachResource = () => {
+  const calculateResourceExpectations = () => {
     updateSet();
     let sum = 0;
     const expectedValueForEachResource: number[] = [0, 0, 0, 0, 0];
@@ -193,7 +193,7 @@ export default function Home() {
     setExpectedValueForEachResource(expectedValueForEachResource);
   };
 
-  const UpdateRecommendedNumber = () => {
+  const updateRecommendedNumbers = () => {
     // ここでどの数字がおすすめか計算する
     let numbers = [2, 3, 4, 5, 6, 8, 9, 10, 11, 12];
     numbers = numbers.filter((number) => !set.has(number));
@@ -280,7 +280,7 @@ export default function Home() {
     );
   };
 
-  const handleDowngrageSettlement = (id: string) => {
+  const handleDowngradeSettlement = (id: string) => {
     const confirmed = window.confirm("本当に開拓地に戻しますか？");
     if (confirmed)
       setSettlements(
@@ -450,7 +450,7 @@ export default function Home() {
                   {settlement.upgraded ? (
                     <button
                       className="bg-green-500 hover:bg-green-600 text-white font-bold p-2 rounded"
-                      onClick={() => handleDowngrageSettlement(settlement.id)}
+                      onClick={() => handleDowngradeSettlement(settlement.id)}
                     >
                       都市
                     </button>
@@ -476,7 +476,6 @@ export default function Home() {
 
         {/* 右側 */}
         <div className="w-1/2">
-          {/* S, A, Bなどのランク分けもできると良き */}
           <div className="text-2xl m-4">
             <InfoTooltip
               text="期待値"
@@ -513,7 +512,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-      {/* 各資源の数字をここで入力 */}
     </main>
   );
 }
