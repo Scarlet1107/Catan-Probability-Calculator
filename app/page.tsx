@@ -475,7 +475,8 @@ export default function Home() {
               text="期待値"
               tooltipText="2から12の36通りの数字が出たときに、何枚の資源がもらえるかを表します"
             />{" "}
-            : {expectedValue} (ランク{expectedValueRank})
+            : <span data-testid = "expectedValue">{expectedValue}</span> (ランク
+            {expectedValueRank})
           </div>
           <div className="text-2xl m-4">
             <InfoTooltip
@@ -509,4 +510,3 @@ export default function Home() {
     </main>
   );
 }
-

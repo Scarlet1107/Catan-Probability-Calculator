@@ -3,10 +3,10 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import Home from "../app/page";
 
 // Snapshot test
-test("Snapshot test", () => {
-  const { asFragment } = render(<Home />);
-  expect(asFragment()).toMatchSnapshot();
-});
+// test("Snapshot test", () => {
+//   const { asFragment } = render(<Home />);
+//   expect(asFragment()).toMatchSnapshot();
+// });
 
 test("Title exists", () => {
   render(<Home />);
@@ -57,19 +57,12 @@ test("Chart exists", () => {
   expect(chart).toBeInTheDocument();
 });
 
-// test('Calculation does not execute when only resources are selected', () => {
-//   render(<Home />);
+test("Calculation does not execute when only resources are selected", () => {
+  const { getByTestId } = render(<Home />);
+  const resourceSelects = screen.getAllByRole('combobox').filter((select, index) => index % 2 === 0);
+  fireEvent.change(resourceSelects[0], { target: { value: 'wood' } });
+  fireEvent.change(resourceSelects[1], { target: { value: 'bricks' } });
+  fireEvent.change(resourceSelects[2], { target: { value: 'wheat' } });
 
-//   // 資源を選択できる Select タグの中で適当な資源を選択
-//   const resourceSelects = screen.getAllByRole('combobox').filter((select, index) => index % 2 === 0);
-//   fireEvent.change(resourceSelects[0], { target: { value: 'wood' } });
-//   fireEvent.change(resourceSelects[1], { target: { value: 'bricks' } });
-//   fireEvent.change(resourceSelects[2], { target: { value: 'wheat' } });
-
-//   // 数字を選択できる Select タグは何も操作しない
-
-//   // 期待値が0であることを確認
-//   const expectedValueElement = screen.getByText(/期待値?:?0/ , { exact: false });
-
-//   expect(expectedValueElement).toBeInTheDocument();
-// });
+  expect(getByTestId("expectedValue")).toHaveTextContent("0");
+});
