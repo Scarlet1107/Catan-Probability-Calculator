@@ -63,18 +63,12 @@ export default function Home() {
 
   useEffect(() => {
     const savedSettlements = localStorage.getItem("settlements");
-    console.log("savedSettlements = ", savedSettlements);
     if (savedSettlements !== null) {
-      console.log(
-        "JSON.parse(savedSettlements) = ",
-        JSON.parse(savedSettlements)
-      );
       setSettlements(JSON.parse(savedSettlements));
     }
   }, []);
 
   useEffect(() => {
-    console.log("settlements = ", settlements);
     localStorage.setItem("settlements", JSON.stringify(settlements));
     calculateExpectation();
     calculateProbability();
