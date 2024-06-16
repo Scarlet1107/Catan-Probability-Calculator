@@ -8,8 +8,19 @@ const config: Config.InitialOptions = {
   },
   testEnvironment: "jest-environment-jsdom",
   transform: {
-    "^.+\\.(js|jsx|ts|tsx)$": "babel-jest"
+    "^.+\\.(js|jsx|ts|tsx)$": ["babel-jest", {
+      presets: [
+        '@babel/preset-env',
+        '@babel/preset-react',
+        '@babel/preset-typescript'
+      ]
+    }]
   },
+  globals: {
+    'ts-jest': {
+      tsconfig: 'tsconfig.jest.json'
+    }
+  }
 };
 
 export default config;
