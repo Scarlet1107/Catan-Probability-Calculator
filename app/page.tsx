@@ -64,22 +64,19 @@ export default function Home() {
 
   useEffect(() => {
     const savedSettlements = localStorage.getItem("settlements");
-    if (savedSettlements !== null) {
+    if (savedSettlements !== null && initialRender.current) {
+      initialRender.current = false;
       setSettlements(JSON.parse(savedSettlements));
     }
   }, []);
 
   useEffect(() => {
-    if (initialRender.current) {
-      initialRender.current = false;
-    } else {
-      localStorage.setItem("settlements", JSON.stringify(settlements));
-      calculateExpectation();
-      calculateProbability();
-      calculateResourceExpectations();
-      updateRecommendedNumbers();
-      searchRecommendedSettlement();
-    }
+    localStorage.setItem("settlements", JSON.stringify(settlements));
+    calculateExpectation();
+    calculateProbability();
+    calculateResourceExpectations();
+    updateRecommendedNumbers();
+    searchRecommendedSettlement();
   }, [settlements]);
 
   const numberToProbability = (number: number) => {
