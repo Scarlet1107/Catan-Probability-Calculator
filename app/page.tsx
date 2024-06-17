@@ -360,7 +360,7 @@ export default function Home() {
           <div>開拓地の情報から、資源取得確率や期待値を計算できます。</div>
 
           <div className="grid grid-cols-5 gap-4 place-items-center mt-6">
-            <button className="button mb-2" onClick={handleCreateSettlement}>
+            <button className="button mb-2" onClick={handleCreateSettlement} data-testid = "addSettlementButton">
               開拓地を追加
             </button>
             <div className="text-xl font-medium">資源１</div>
@@ -390,6 +390,7 @@ export default function Home() {
                   }}
                   className="border border-gray-300 rounded px-4 py-2 mb-2 h-1/2 w-4/5 place-self-center"
                   placeholder="開拓地"
+                  data-testid = "settlementNameInput"
                 />
 
                 {settlement.resources.map((resource, index) => (
@@ -404,6 +405,7 @@ export default function Home() {
                         )
                       }
                       className="w-4/5 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                      data-testid="resourceSelect"
                     >
                       <option value=""></option>
                       <option value="wood">木材</option>
@@ -422,6 +424,7 @@ export default function Home() {
                         )
                       }
                       className="w-4/5 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                      data-testid="numberSelect"
                     >
                       <option value=""></option>
                       {Array.from({ length: 11 }, (_, i) => i + 2)
@@ -452,6 +455,7 @@ export default function Home() {
                     <button
                       className="button"
                       onClick={() => handleUpgradeSettlement(settlement.id)}
+                      data-testid="upgradeButton"
                     >
                       都市化
                     </button>
@@ -459,6 +463,7 @@ export default function Home() {
                   <button
                     className="bg-red-500 hover:bg-red-600 text-white font-bold p-2 rounded"
                     onClick={() => handleDeleteSettlement(settlement.id)}
+                    data-testid="deleteButton"
                   >
                     消
                   </button>
@@ -475,7 +480,7 @@ export default function Home() {
               text="期待値"
               tooltipText="2から12の36通りの数字が出たときに、何枚の資源がもらえるかを表します"
             />{" "}
-            : <span data-testid = "expectedValue">{expectedValue}</span> (ランク
+            : <span data-testid="expectedValue">{expectedValue}</span> (ランク
             {expectedValueRank})
           </div>
           <div className="text-2xl m-4">
@@ -485,7 +490,9 @@ export default function Home() {
             />
             <span>
               {" "}
-              : {probability} / 36 (ランク{probabilityRank})
+              : <span data-testid="probability">{probability}</span> / 36
+              (ランク
+              {probabilityRank})
             </span>
           </div>
           <div className="text-2xl m-4">
@@ -493,14 +500,21 @@ export default function Home() {
               text="おすすめの数字"
               tooltipText="おすすめの開拓地の数字の場所を表します"
             />{" "}
-            : {recommendedNumbers.join(", ")}
+            :{" "}
+            <span data-testid="recommendedNumbers">
+              {recommendedNumbers.join(", ")}
+            </span>
           </div>
           <div className="text-2xl m-4">
             <InfoTooltip
               text="アップグレードにおすすめの開拓地"
               tooltipText="資源取得量からアップグレードにおすすめの開拓地を計算します。資源取得量のみを考慮しているのでお気をつけください"
             />{" "}
-            : 「{recommendedSettlementName}」
+            : 「
+            <span data-testid="recommendedSettlementName">
+              {recommendedSettlementName}
+            </span>
+            」
           </div>
           <div className="text-2xl flex justify-center">
             <Bar data={ChartData} options={options} />
