@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import InfoTooltip from "./InfoTooltip";
 import {
@@ -60,6 +60,7 @@ export default function Home() {
   const [recommendedNumbers, setRecommendedNumbers] = useState<number[]>([]);
   const [recommendedSettlementName, setRecommendedSettlementName] =
     useState<string>("");
+  const initialRender = useRef(true);
 
   useEffect(() => {
     const savedSettlements = localStorage.getItem("settlements");
@@ -69,12 +70,16 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("settlements", JSON.stringify(settlements));
-    calculateExpectation();
-    calculateProbability();
-    calculateResourceExpectations();
-    updateRecommendedNumbers();
-    searchRecommendedSettlement();
+    if (initialRender.current) {
+      initialRender.current = false;
+    } else {
+      localStorage.setItem("settlements", JSON.stringify(settlements));
+      calculateExpectation();
+      calculateProbability();
+      calculateResourceExpectations();
+      updateRecommendedNumbers();
+      searchRecommendedSettlement();
+    }
   }, [settlements]);
 
   const numberToProbability = (number: number) => {
@@ -360,7 +365,11 @@ export default function Home() {
           <div>開拓地の情報から、資源取得確率や期待値を計算できます。</div>
 
           <div className="grid grid-cols-5 gap-4 place-items-center mt-6">
-            <button className="button mb-2" onClick={handleCreateSettlement} data-testid = "addSettlementButton">
+            <button
+              className="button mb-2"
+              onClick={handleCreateSettlement}
+              data-testid="addSettlementButton"
+            >
               開拓地を追加
             </button>
             <div className="text-xl font-medium">資源１</div>
@@ -390,7 +399,7 @@ export default function Home() {
                   }}
                   className="border border-gray-300 rounded px-4 py-2 mb-2 h-1/2 w-4/5 place-self-center"
                   placeholder="開拓地"
-                  data-testid = "settlementNameInput"
+                  data-testid="settlementNameInput"
                 />
 
                 {settlement.resources.map((resource, index) => (
