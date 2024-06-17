@@ -1,6 +1,6 @@
 import React from "react";
 import { fireEvent, render, screen, cleanup } from "@testing-library/react";
-import Home from "../app/page";
+import Home from "../app/CatanApp";
 import { before } from "node:test";
 
 // 要素が存在するかどうかなどの基本的なテスト
