@@ -1,4 +1,4 @@
-// RightSide Panel
+// calculationResultPanel.tsx
 
 import React, { useEffect, useState } from "react";
 import { useSettlements } from "../context/SettlementsContext";

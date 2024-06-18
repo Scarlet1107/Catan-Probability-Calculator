@@ -1,4 +1,5 @@
-// LeftSide Panel
+// resourceInputPanel.tsx
+
 import React from "react";
 import { Settlement, useSettlements } from "../context/SettlementsContext";
 import { v4 as uuidv4 } from "uuid";
