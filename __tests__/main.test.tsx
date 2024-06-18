@@ -1,7 +1,6 @@
 import React from "react";
 import { fireEvent, render, screen, cleanup } from "@testing-library/react";
-import Home from "../app/CatanApp";
-import { before } from "node:test";
+import Home from "../app/page";
 
 // 要素が存在するかどうかなどの基本的なテスト
 describe("Basic Test", () => {
@@ -19,7 +18,7 @@ describe("Basic Test", () => {
     expect(titleElement).toBeInTheDocument();
   });
 
-  // 2. 2. ボタンが正しい数、正しい種類存在する
+  // 2. ボタンが正しい数、正しい種類存在する
   test("Correct buttons exist", () => {
     const addSettlementButton = screen.getByTestId("addSettlementButton");
     const upgradeButtons = screen.getAllByTestId("upgradeButton");
