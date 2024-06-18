@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Use case Test renders correctly and matches snapshot 1`] = `
+exports[`Basic tests for the presence of elements renders correctly and matches snapshot 1`] = `
 <DocumentFragment>
   <main
     class="bg-custom-bg bg-cover bg-center"
@@ -49,6 +49,7 @@ exports[`Use case Test renders correctly and matches snapshot 1`] = `
           </div>
           <button
             class="w-3/5 mb-4 bg-gray-500 hover:bg-red-700 text-white font-bold p-2 rounded"
+            data-testid="resetButton"
           >
             初期化
           </button>
@@ -62,7 +63,7 @@ exports[`Use case Test renders correctly and matches snapshot 1`] = `
               data-testid="settlementNameInput"
               placeholder="開拓地"
               type="text"
-              value="テスト開拓地"
+              value="開拓地1"
             />
             <div
               class=""
@@ -763,9 +764,9 @@ exports[`Use case Test renders correctly and matches snapshot 1`] = `
           <span
             data-testid="expectedValue"
           >
-            18
+            0
           </span>
-           (ランクD)
+           (ランクE)
         </div>
         <div
           class="text-2xl m-4"
@@ -788,9 +789,9 @@ exports[`Use case Test renders correctly and matches snapshot 1`] = `
             <span
               data-testid="probability"
             >
-              15
+              0
             </span>
-             / 36 (ランクD)
+             / 36 (ランクE)
           </span>
         </div>
         <div
@@ -813,7 +814,7 @@ exports[`Use case Test renders correctly and matches snapshot 1`] = `
           <span
             data-testid="recommendedNumbers"
           >
-            8, 5, 9
+            6, 8, 5
           </span>
         </div>
         <div
@@ -835,9 +836,7 @@ exports[`Use case Test renders correctly and matches snapshot 1`] = `
            : 「
           <span
             data-testid="recommendedSettlementName"
-          >
-            開拓地2
-          </span>
+          />
           」
         </div>
         <div

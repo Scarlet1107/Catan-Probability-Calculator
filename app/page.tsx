@@ -375,6 +375,7 @@ export default function Home() {
             <button
               className="w-3/5 mb-4 bg-gray-500 hover:bg-red-700 text-white font-bold p-2 rounded"
               onClick={() => handleResetSettlements()}
+              data-testid = "resetButton"
             >
               初期化
             </button>
