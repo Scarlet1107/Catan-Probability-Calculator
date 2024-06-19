@@ -59,7 +59,7 @@ body {
 }
 
 button {
-  @apply bg-blue-500 hover:bg-blue-600 text-white font-bold p-2 rounded;
+  @apply text-white font-bold p-2 rounded;
 }
 
 select option:hover {

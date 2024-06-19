@@ -27,7 +27,7 @@ exports[`Basic tests for the presence of elements renders correctly and matches 
           class="grid grid-cols-5 gap-4 place-items-center mt-6"
         >
           <button
-            class="button mb-2"
+            class="button bg-blue-500 hover:bg-blue-600 mb-2"
             data-testid="addSettlementButton"
           >
             開拓地を追加
@@ -48,7 +48,7 @@ exports[`Basic tests for the presence of elements renders correctly and matches 
             資源３
           </div>
           <button
-            class="w-3/5 mb-4 bg-gray-500 hover:bg-red-700 text-white font-bold p-2 rounded"
+            class="button w-3/5 mb-4 bg-gray-500 hover:bg-red-700"
             data-testid="resetButton"
           >
             初期化
@@ -384,13 +384,13 @@ exports[`Basic tests for the presence of elements renders correctly and matches 
               class="flex flex-col w-3/4 justify-center space-y-2"
             >
               <button
-                class="button"
+                class="button bg-blue-500 hover:bg-blue-600"
                 data-testid="upgradeButton"
               >
                 都市化
               </button>
               <button
-                class="bg-red-500 hover:bg-red-600 text-white font-bold p-2 rounded"
+                class="button bg-red-500 hover:bg-red-600"
                 data-testid="deleteButton"
               >
                 消
@@ -726,13 +726,13 @@ exports[`Basic tests for the presence of elements renders correctly and matches 
               class="flex flex-col w-3/4 justify-center space-y-2"
             >
               <button
-                class="button"
+                class="button bg-blue-500 hover:bg-blue-600"
                 data-testid="upgradeButton"
               >
                 都市化
               </button>
               <button
-                class="bg-red-500 hover:bg-red-600 text-white font-bold p-2 rounded"
+                class="button bg-red-500 hover:bg-red-600"
                 data-testid="deleteButton"
               >
                 消
