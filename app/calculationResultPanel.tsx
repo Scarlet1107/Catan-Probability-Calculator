@@ -18,7 +18,7 @@ const CalculationResultPanel = () => {
   const [recommendedSettlementName, setRecommendedSettlementName] =
     useState<string>("");
 
-  // 開拓地の情報が変更されるたびに再度計算する
+  // 開拓地の情報が変更されるたびに再計算する
   useEffect(() => {
     calculateExpectation();
     calculateProbability();
@@ -41,16 +41,15 @@ const CalculationResultPanel = () => {
     else if (probability >= 23) return "A";
     else if (probability >= 19) return "B";
     else if (probability >= 16) return "C";
-    else if (probability >= 13) return "D";
-    else return "E";
+    else return "D";
   };
 
   const expectationToRank = (expectation: number) => {
-    if (expectation >= 50) return "S";
-    else if (expectation >= 40) return "A";
-    else if (expectation >= 35) return "B";
-    else if (expectation >= 26) return "C";
-    else if (expectation >= 18) return "D";
+    if (expectation >= 60) return "S";
+    else if (expectation >= 52) return "A";
+    else if (expectation >= 44) return "B";
+    else if (expectation >= 33) return "C";
+    else if (expectation >= 24) return "D";
     else return "E";
   };
 
