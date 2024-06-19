@@ -109,13 +109,13 @@ const ResourceInputPanel = () => {
   };
 
   return (
-    <div>
+    <>
       {/* 左側 */}
       <div className="w-1/2 p-4">
         <div>開拓地の情報から、資源取得確率や期待値を計算できます。</div>
         <div className="grid grid-cols-5 gap-4 place-items-center mt-6">
           <button
-            className="button mb-2"
+            className="button bg-blue-500 hover:bg-blue-600 mb-2"
             onClick={handleCreateSettlement}
             data-testid="addSettlementButton"
           >
@@ -125,8 +125,9 @@ const ResourceInputPanel = () => {
           <div className="text-xl font-medium">資源２</div>
           <div className="text-xl font-medium">資源３</div>
           <button
-            className="w-3/5 mb-4 bg-gray-500 hover:bg-red-700 text-white font-bold p-2 rounded"
+            className="button w-3/5 mb-4 bg-gray-500 hover:bg-red-700"
             onClick={() => handleResetSettlements()}
+            data-testid="resetButton"
           >
             初期化
           </button>
@@ -199,14 +200,14 @@ const ResourceInputPanel = () => {
               <div className="flex flex-col w-3/4 justify-center space-y-2">
                 {settlement.upgraded ? (
                   <button
-                    className="bg-green-500 hover:bg-green-600 text-white font-bold p-2 rounded"
+                    className="button bg-green-500 hover:bg-green-600"
                     onClick={() => handleDowngradeSettlement(settlement.id)}
                   >
                     都市
                   </button>
                 ) : (
                   <button
-                    className="button"
+                    className="button bg-blue-500 hover:bg-blue-600"
                     onClick={() => handleUpgradeSettlement(settlement.id)}
                     data-testid="upgradeButton"
                   >
@@ -214,7 +215,7 @@ const ResourceInputPanel = () => {
                   </button>
                 )}
                 <button
-                  className="bg-red-500 hover:bg-red-600 text-white font-bold p-2 rounded"
+                  className="button bg-red-500 hover:bg-red-600"
                   onClick={() => handleDeleteSettlement(settlement.id)}
                   data-testid="deleteButton"
                 >
@@ -225,7 +226,7 @@ const ResourceInputPanel = () => {
           ))}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

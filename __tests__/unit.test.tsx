@@ -1,11 +1,11 @@
 import React from "react";
 import { fireEvent, render, screen, cleanup } from "@testing-library/react";
-import Home from "../app/page";
+import CatanApp from "../app/page";
 
 // 要素が存在するかどうかなどの基本的なテスト
 describe("Basic tests for the presence of elements", () => {
   beforeEach(() => {
-    render(<Home />);
+    render(<CatanApp />);
   });
 
   afterEach(() => {
@@ -136,7 +136,7 @@ describe("Basic tests for the presence of elements", () => {
 
   // 13. スナップショットテスト
   test("renders correctly and matches snapshot", () => {
-    const { asFragment } = render(<Home />);
+    const { asFragment } = render(<CatanApp />);
     expect(asFragment()).toMatchSnapshot();
   });
 });

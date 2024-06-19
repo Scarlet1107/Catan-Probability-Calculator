@@ -1,13 +1,13 @@
 import React from "react";
 import { fireEvent, render, screen, cleanup } from "@testing-library/react";
-import Home from "../app/page";
+import CatanApp from "../app/page";
 
 // 各テストは前の結果を引き継いで次のテストを行っています。並列処理で実行しないでください。
 
 // ユーザーの動きに合わせた一連の動作テスト
 describe("A series of user behavior tests", () => {
   beforeEach(() => {
-    render(<Home />);
+    render(<CatanApp />);
     window.confirm = jest.fn().mockImplementation(() => true);
   });
 

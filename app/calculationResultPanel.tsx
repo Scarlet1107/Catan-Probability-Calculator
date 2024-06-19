@@ -18,8 +18,8 @@ const CalculationResultPanel = () => {
   const [recommendedSettlementName, setRecommendedSettlementName] =
     useState<string>("");
 
+  // 開拓地の情報が変更されるたびに再度計算する
   useEffect(() => {
-    localStorage.setItem("settlements", JSON.stringify(settlements));
     calculateExpectation();
     calculateProbability();
     calculateResourceExpectations();
@@ -209,7 +209,7 @@ const CalculationResultPanel = () => {
   };
 
   return (
-    <div>
+    <>
       <div className="w-1/2">
         <div className="text-2xl m-4">
           <InfoTooltip
@@ -255,7 +255,7 @@ const CalculationResultPanel = () => {
           <Bar data={ChartData} options={options} />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
