@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AppProps } from "next/app";
 import {
   Settlement,
@@ -43,6 +43,7 @@ export default function App() {
 function CatanApp() {
   const { settlements, setSettlements } = useSettlements();
   const initialRender = useRef(true);
+  const [isNumericMode, setIsNumericMode] = useState<boolean>(true);
 
   useEffect(() => {
     const savedSettlements = localStorage.getItem("settlements");
@@ -54,10 +55,10 @@ function CatanApp() {
 
   return (
     <main className="bg-custom-bg bg-cover bg-center">
-      <Header />
+      <Header isNumericMode = {isNumericMode} setIsNumericMode = {setIsNumericMode}/>
       <div className="flex h-screen justify-center bg-white">
         <ResourceInputPanel />
-        <CalculationResultPanel />
+        <CalculationResultPanel isNumericMode = {isNumericMode}/>
       </div>
     </main>
   );

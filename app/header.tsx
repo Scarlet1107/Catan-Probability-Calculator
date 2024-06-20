@@ -1,8 +1,16 @@
 // header.tsx
 
-import React from "react";
+import React, { useState } from "react";
 
-const header = () => {
+const Header = ({
+  isNumericMode,
+  setIsNumericMode,
+}: {
+  isNumericMode: boolean;
+  setIsNumericMode: (value: boolean) => void;
+}) => {
+  // "NUMERIC" or "RANK"
+
   return (
     <div>
       <header className="bg-blue-200 p-4 flex justify-around">
@@ -12,9 +20,20 @@ const header = () => {
           <p>/</p>
           <p>English</p>
         </div> */}
+        <div className="text-xl">
+          {isNumericMode ? (
+            <button onClick={() => setIsNumericMode(false)} className="">
+              ランク表示に変更
+            </button>
+          ) : (
+            <button onClick={() => setIsNumericMode(true)} className="">
+              数字表示に変更
+            </button>
+          )}
+        </div>
       </header>
     </div>
   );
 };
 
-export default header;
+export default Header;

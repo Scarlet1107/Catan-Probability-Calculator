@@ -58,7 +58,7 @@ body {
   }
 }
 
-button {
+.button {
   @apply text-white font-bold p-2 rounded;
 }
 

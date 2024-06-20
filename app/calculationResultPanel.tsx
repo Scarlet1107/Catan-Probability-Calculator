@@ -5,7 +5,11 @@ import { useSettlements } from "../context/SettlementsContext";
 import InfoTooltip from "./InfoTooltip";
 import { Bar } from "react-chartjs-2";
 
-const CalculationResultPanel = () => {
+const CalculationResultPanel = ({
+  isNumericMode,
+}: {
+  isNumericMode: boolean;
+}) => {
   const { settlements, setSettlements } = useSettlements();
   const [probability, setProbability] = useState<number>(0);
   const [probabilityRank, setProbabilityRank] = useState<string>("");
@@ -215,19 +219,24 @@ const CalculationResultPanel = () => {
             text="期待値"
             tooltipText="2から12の36通りの数字が出たときに、何枚の資源がもらえるかを表します"
           />{" "}
-          : <span data-testid="expectedValue">{expectedValue}</span> (ランク
-          {expectedValueRank})
+          :{" "}
+          {isNumericMode ? (
+            <span data-testid="expectedValue">{expectedValue}</span>
+          ) : (
+            <span>ランク{expectedValueRank}</span>
+          )}
         </div>
         <div className="text-2xl m-4">
           <InfoTooltip
             text="資源取得確率"
             tooltipText="ダイスを振ったときに資源が１枚以上もらえる確率を表します"
-          />
-          <span>
-            {" "}
-            : <span data-testid="probability">{probability}</span> / 36 (ランク
-            {probabilityRank})
-          </span>
+          />{" "}
+          :{" "}
+          {isNumericMode ? (
+            <span data-testid="probability">{probability} / 36</span>
+          ) : (
+            <span>ランク{probabilityRank}</span>
+          )}
         </div>
         <div className="text-2xl m-4">
           <InfoTooltip
