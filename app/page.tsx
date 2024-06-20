@@ -1,13 +1,9 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { AppProps } from "next/app";
 import {
-  Settlement,
   SettlementsProvider,
   useSettlements,
 } from "../context/SettlementsContext";
-import { v4 as uuidv4 } from "uuid";
-import InfoTooltip from "./InfoTooltip";
 import Header from "./header";
 import ResourceInputPanel from "./resourceInputPanel";
 import CalculationResultPanel from "./calculationResultPanel";
@@ -21,7 +17,6 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { Bar } from "react-chartjs-2";
 
 ChartJS.register(
   CategoryScale,

@@ -1,6 +1,6 @@
 // header.tsx
 
-import React, { useState } from "react";
+import React from "react";
 
 const Header = ({
   isNumericMode,
