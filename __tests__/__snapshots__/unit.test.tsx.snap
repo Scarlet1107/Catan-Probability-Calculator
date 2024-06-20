@@ -18,7 +18,7 @@ exports[`Basic tests for the presence of elements renders correctly and matches 
           class="text-xl"
         >
           <button
-            class=""
+            data-testid="changeDisplayModeToNumeric"
           >
             ランク表示に変更
           </button>

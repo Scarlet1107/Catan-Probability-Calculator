@@ -22,11 +22,11 @@ const Header = ({
         </div> */}
         <div className="text-xl">
           {isNumericMode ? (
-            <button onClick={() => setIsNumericMode(false)} className="">
+            <button onClick={() => setIsNumericMode(false)} data-testid = "changeDisplayModeToNumeric">
               ランク表示に変更
             </button>
           ) : (
-            <button onClick={() => setIsNumericMode(true)} className="">
+            <button onClick={() => setIsNumericMode(true)} data-testid = "changeDisplayModeToRank">
               数字表示に変更
             </button>
           )}

@@ -21,12 +21,14 @@ describe("Basic tests for the presence of elements", () => {
 
   // 2. ボタンが正しい数、正しい種類存在する
   test("Correct buttons exist", () => {
+    const buttons = screen.getAllByRole("button");
     const addSettlementButton = screen.getByTestId("addSettlementButton");
     const upgradeButtons = screen.getAllByTestId("upgradeButton");
     const deleteButtons = screen.getAllByTestId("deleteButton");
     expect(addSettlementButton).toBeInTheDocument();
     expect(upgradeButtons).toHaveLength(2);
     expect(deleteButtons).toHaveLength(2);
+    expect(buttons).toHaveLength(7); // 「開拓地を追加*1」「初期化」「都市化*2」「消*2」「ランク表示に変更*1」で計7つ
   });
 
   // 3. インプットタグが正しい数あり、値が正しい

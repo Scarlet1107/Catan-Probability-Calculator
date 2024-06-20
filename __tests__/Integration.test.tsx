@@ -202,7 +202,7 @@ describe("A series of user behavior tests", () => {
     const numberSelects = screen.getAllByTestId("numberSelect");
 
     expect(selects.length).toBe(12);
-    expect(buttons.length).toBe(6);
+    expect(buttons.length).toBe(7);
     expect(resourceSelects.length).toBe(6);
     expect(numberSelects.length).toBe(6);
     expect(resourceSelects[0]).toHaveValue("");
