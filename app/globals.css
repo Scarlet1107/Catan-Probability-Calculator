@@ -27,7 +27,7 @@
 } */
 
 body {
-  -webkit-text-size-adjust: 100%;  
+  -webkit-text-size-adjust: 100%;
 }
 
 @layer utilities {
@@ -39,7 +39,7 @@ body {
 @layer components {
   .tooltip {
     position: relative;
-    background-color: black; 
+    background-color: black;
     color: white;
     padding: 0.5rem;
     border-radius: 0.25rem;
@@ -64,4 +64,8 @@ body {
 
 select option:hover {
   color: red !important; /* ホバー時のテキストカラーを赤にする */
+}
+
+.grid-cols-5 {
+  grid-template-columns: repeat(4, 4fr) 3fr;
 }

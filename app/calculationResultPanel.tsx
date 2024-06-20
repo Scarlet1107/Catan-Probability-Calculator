@@ -213,7 +213,7 @@ const CalculationResultPanel = ({
 
   return (
     <>
-      <div className="w-1/2">
+      <div className="w-1/2 ml-4 mr-8">
         <div className="text-2xl m-4">
           <InfoTooltip
             text="期待値"

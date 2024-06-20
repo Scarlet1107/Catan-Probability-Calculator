@@ -111,11 +111,11 @@ const ResourceInputPanel = () => {
   return (
     <>
       {/* 左側 */}
-      <div className="w-1/2 p-4">
+      <div className="w-1/2 pl-8 pt-4 mr-4">
         <div>開拓地の情報から、資源取得確率や期待値を計算できます。</div>
-        <div className="grid grid-cols-5 gap-4 place-items-center mt-6">
+        <div className="grid grid-cols-5 gap-4 place-items-center mt-6 ">
           <button
-            className="button bg-blue-500 hover:bg-blue-600 mb-2"
+            className="button bg-blue-500 hover:bg-blue-600 place-self-start w-4/5 h-5/6"
             onClick={handleCreateSettlement}
             tabIndex={1}
             data-testid="addSettlementButton"
@@ -126,7 +126,7 @@ const ResourceInputPanel = () => {
           <div className="text-xl font-medium">資源２</div>
           <div className="text-xl font-medium">資源３</div>
           <button
-            className="button w-3/5 mb-4 bg-gray-500 hover:bg-red-700"
+            className="button mb-4 bg-gray-500 hover:bg-red-700 place-self-end w-4/5 mr-2"
             onClick={() => handleResetSettlements()}
             tabIndex={1}
             data-testid="resetButton"
@@ -137,7 +137,7 @@ const ResourceInputPanel = () => {
         <div>
           {/* ここをmapで複数表示する */}
           {settlements.map((settlement) => (
-            <div key={settlement.id} className="grid grid-cols-5 gap-4 mb-4">
+            <div key={settlement.id} className="grid grid-cols-5 gap-4 mb-4 place-items-end">
               <input
                 type="text"
                 value={settlement.name}
@@ -149,7 +149,7 @@ const ResourceInputPanel = () => {
                     )
                   );
                 }}
-                className="border border-gray-300 rounded px-4 py-2 mb-2 h-1/2 w-4/5 place-self-center"
+                className="border border-gray-300 rounded px-4 py-2 mb-2 h-1/2 w-4/5 place-self-start self-center"
                 placeholder="開拓地"
                 tabIndex={2}
                 data-testid="settlementNameInput"
@@ -161,7 +161,7 @@ const ResourceInputPanel = () => {
                     onChange={(e) =>
                       handleResourceChange(settlement.id, index, e.target.value)
                     }
-                    className="w-4/5 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                    className="justify-self-center w-4/5 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                     tabIndex={1}
                     data-testid="resourceSelect"
                   >
@@ -181,7 +181,7 @@ const ResourceInputPanel = () => {
                         Number(e.target.value)
                       )
                     }
-                    className="w-4/5 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                    className="w-4/5 mt-2 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                     tabIndex={1}
                     data-testid="numberSelect"
                   >
@@ -202,7 +202,7 @@ const ResourceInputPanel = () => {
                   </select>
                 </div>
               ))}
-              <div className="flex flex-col w-3/4 justify-center space-y-2">
+              <div className="flex flex-col w-full mr-2">
                 {settlement.upgraded ? (
                   <button
                     className="button bg-green-500 hover:bg-green-600"
@@ -222,7 +222,7 @@ const ResourceInputPanel = () => {
                   </button>
                 )}
                 <button
-                  className="button bg-red-500 hover:bg-red-600"
+                  className="button bg-red-500 hover:bg-red-600 mt-2"
                   onClick={() => handleDeleteSettlement(settlement.id)}
                   tabIndex={2}
                   data-testid="deleteButton"

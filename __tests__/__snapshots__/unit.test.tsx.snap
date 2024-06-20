@@ -29,16 +29,16 @@ exports[`Basic tests for the presence of elements renders correctly and matches 
       class="flex h-screen justify-center bg-white"
     >
       <div
-        class="w-1/2 p-4"
+        class="w-1/2 pl-8 pt-4 mr-4"
       >
         <div>
           開拓地の情報から、資源取得確率や期待値を計算できます。
         </div>
         <div
-          class="grid grid-cols-5 gap-4 place-items-center mt-6"
+          class="grid grid-cols-5 gap-4 place-items-center mt-6 "
         >
           <button
-            class="button bg-blue-500 hover:bg-blue-600 mb-2"
+            class="button bg-blue-500 hover:bg-blue-600 place-self-start w-4/5 h-5/6"
             data-testid="addSettlementButton"
             tabindex="1"
           >
@@ -60,7 +60,7 @@ exports[`Basic tests for the presence of elements renders correctly and matches 
             資源３
           </div>
           <button
-            class="button w-3/5 mb-4 bg-gray-500 hover:bg-red-700"
+            class="button mb-4 bg-gray-500 hover:bg-red-700 place-self-end w-4/5 mr-2"
             data-testid="resetButton"
             tabindex="1"
           >
@@ -69,10 +69,10 @@ exports[`Basic tests for the presence of elements renders correctly and matches 
         </div>
         <div>
           <div
-            class="grid grid-cols-5 gap-4 mb-4"
+            class="grid grid-cols-5 gap-4 mb-4 place-items-end"
           >
             <input
-              class="border border-gray-300 rounded px-4 py-2 mb-2 h-1/2 w-4/5 place-self-center"
+              class="border border-gray-300 rounded px-4 py-2 mb-2 h-1/2 w-4/5 place-self-start self-center"
               data-testid="settlementNameInput"
               placeholder="開拓地"
               tabindex="2"
@@ -83,7 +83,7 @@ exports[`Basic tests for the presence of elements renders correctly and matches 
               class=""
             >
               <select
-                class="w-4/5 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                class="justify-self-center w-4/5 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                 data-testid="resourceSelect"
                 tabindex="1"
               >
@@ -117,7 +117,7 @@ exports[`Basic tests for the presence of elements renders correctly and matches 
                 </option>
               </select>
               <select
-                class="w-4/5 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                class="w-4/5 mt-2 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                 data-testid="numberSelect"
                 tabindex="1"
               >
@@ -190,7 +190,7 @@ exports[`Basic tests for the presence of elements renders correctly and matches 
               class=""
             >
               <select
-                class="w-4/5 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                class="justify-self-center w-4/5 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                 data-testid="resourceSelect"
                 tabindex="1"
               >
@@ -224,7 +224,7 @@ exports[`Basic tests for the presence of elements renders correctly and matches 
                 </option>
               </select>
               <select
-                class="w-4/5 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                class="w-4/5 mt-2 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                 data-testid="numberSelect"
                 tabindex="1"
               >
@@ -297,7 +297,7 @@ exports[`Basic tests for the presence of elements renders correctly and matches 
               class=""
             >
               <select
-                class="w-4/5 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                class="justify-self-center w-4/5 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                 data-testid="resourceSelect"
                 tabindex="1"
               >
@@ -331,7 +331,7 @@ exports[`Basic tests for the presence of elements renders correctly and matches 
                 </option>
               </select>
               <select
-                class="w-4/5 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                class="w-4/5 mt-2 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                 data-testid="numberSelect"
                 tabindex="1"
               >
@@ -401,7 +401,7 @@ exports[`Basic tests for the presence of elements renders correctly and matches 
               </select>
             </div>
             <div
-              class="flex flex-col w-3/4 justify-center space-y-2"
+              class="flex flex-col w-full mr-2"
             >
               <button
                 class="button bg-blue-500 hover:bg-blue-600"
@@ -411,7 +411,7 @@ exports[`Basic tests for the presence of elements renders correctly and matches 
                 都市化
               </button>
               <button
-                class="button bg-red-500 hover:bg-red-600"
+                class="button bg-red-500 hover:bg-red-600 mt-2"
                 data-testid="deleteButton"
                 tabindex="2"
               >
@@ -420,10 +420,10 @@ exports[`Basic tests for the presence of elements renders correctly and matches 
             </div>
           </div>
           <div
-            class="grid grid-cols-5 gap-4 mb-4"
+            class="grid grid-cols-5 gap-4 mb-4 place-items-end"
           >
             <input
-              class="border border-gray-300 rounded px-4 py-2 mb-2 h-1/2 w-4/5 place-self-center"
+              class="border border-gray-300 rounded px-4 py-2 mb-2 h-1/2 w-4/5 place-self-start self-center"
               data-testid="settlementNameInput"
               placeholder="開拓地"
               tabindex="2"
@@ -434,7 +434,7 @@ exports[`Basic tests for the presence of elements renders correctly and matches 
               class=""
             >
               <select
-                class="w-4/5 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                class="justify-self-center w-4/5 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                 data-testid="resourceSelect"
                 tabindex="1"
               >
@@ -468,7 +468,7 @@ exports[`Basic tests for the presence of elements renders correctly and matches 
                 </option>
               </select>
               <select
-                class="w-4/5 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                class="w-4/5 mt-2 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                 data-testid="numberSelect"
                 tabindex="1"
               >
@@ -541,7 +541,7 @@ exports[`Basic tests for the presence of elements renders correctly and matches 
               class=""
             >
               <select
-                class="w-4/5 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                class="justify-self-center w-4/5 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                 data-testid="resourceSelect"
                 tabindex="1"
               >
@@ -575,7 +575,7 @@ exports[`Basic tests for the presence of elements renders correctly and matches 
                 </option>
               </select>
               <select
-                class="w-4/5 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                class="w-4/5 mt-2 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                 data-testid="numberSelect"
                 tabindex="1"
               >
@@ -648,7 +648,7 @@ exports[`Basic tests for the presence of elements renders correctly and matches 
               class=""
             >
               <select
-                class="w-4/5 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                class="justify-self-center w-4/5 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                 data-testid="resourceSelect"
                 tabindex="1"
               >
@@ -682,7 +682,7 @@ exports[`Basic tests for the presence of elements renders correctly and matches 
                 </option>
               </select>
               <select
-                class="w-4/5 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                class="w-4/5 mt-2 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                 data-testid="numberSelect"
                 tabindex="1"
               >
@@ -752,7 +752,7 @@ exports[`Basic tests for the presence of elements renders correctly and matches 
               </select>
             </div>
             <div
-              class="flex flex-col w-3/4 justify-center space-y-2"
+              class="flex flex-col w-full mr-2"
             >
               <button
                 class="button bg-blue-500 hover:bg-blue-600"
@@ -762,7 +762,7 @@ exports[`Basic tests for the presence of elements renders correctly and matches 
                 都市化
               </button>
               <button
-                class="button bg-red-500 hover:bg-red-600"
+                class="button bg-red-500 hover:bg-red-600 mt-2"
                 data-testid="deleteButton"
                 tabindex="2"
               >
@@ -773,7 +773,7 @@ exports[`Basic tests for the presence of elements renders correctly and matches 
         </div>
       </div>
       <div
-        class="w-1/2"
+        class="w-1/2 ml-4 mr-8"
       >
         <div
           class="text-2xl m-4"
