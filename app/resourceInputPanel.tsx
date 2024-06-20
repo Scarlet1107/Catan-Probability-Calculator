@@ -117,6 +117,7 @@ const ResourceInputPanel = () => {
           <button
             className="button bg-blue-500 hover:bg-blue-600 mb-2"
             onClick={handleCreateSettlement}
+            tabIndex={1}
             data-testid="addSettlementButton"
           >
             開拓地を追加
@@ -127,6 +128,7 @@ const ResourceInputPanel = () => {
           <button
             className="button w-3/5 mb-4 bg-gray-500 hover:bg-red-700"
             onClick={() => handleResetSettlements()}
+            tabIndex={1}
             data-testid="resetButton"
           >
             初期化
@@ -149,6 +151,7 @@ const ResourceInputPanel = () => {
                 }}
                 className="border border-gray-300 rounded px-4 py-2 mb-2 h-1/2 w-4/5 place-self-center"
                 placeholder="開拓地"
+                tabIndex={2}
                 data-testid="settlementNameInput"
               />
               {settlement.resources.map((resource, index) => (
@@ -159,6 +162,7 @@ const ResourceInputPanel = () => {
                       handleResourceChange(settlement.id, index, e.target.value)
                     }
                     className="w-4/5 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                    tabIndex={1}
                     data-testid="resourceSelect"
                   >
                     <option value=""></option>
@@ -178,6 +182,7 @@ const ResourceInputPanel = () => {
                       )
                     }
                     className="w-4/5 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                    tabIndex={1}
                     data-testid="numberSelect"
                   >
                     <option value=""></option>
@@ -202,6 +207,7 @@ const ResourceInputPanel = () => {
                   <button
                     className="button bg-green-500 hover:bg-green-600"
                     onClick={() => handleDowngradeSettlement(settlement.id)}
+                    tabIndex={2}
                   >
                     都市
                   </button>
@@ -209,6 +215,7 @@ const ResourceInputPanel = () => {
                   <button
                     className="button bg-blue-500 hover:bg-blue-600"
                     onClick={() => handleUpgradeSettlement(settlement.id)}
+                    tabIndex={2}
                     data-testid="upgradeButton"
                   >
                     都市化
@@ -217,6 +224,7 @@ const ResourceInputPanel = () => {
                 <button
                   className="button bg-red-500 hover:bg-red-600"
                   onClick={() => handleDeleteSettlement(settlement.id)}
+                  tabIndex={2}
                   data-testid="deleteButton"
                 >
                   消
