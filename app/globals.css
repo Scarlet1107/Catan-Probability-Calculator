@@ -16,18 +16,9 @@
   }
 }
 
-/* body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-} */
-
 body {
   -webkit-text-size-adjust: 100%;
+  overflow-y: scroll; /* 常に垂直スクロールバーを表示 */
 }
 
 @layer utilities {
@@ -68,4 +59,62 @@ select option:hover {
 
 .grid-cols-5 {
   grid-template-columns: repeat(4, 4fr) 3fr;
+}
+
+/* one div loaders */
+.square-spin-1 {
+  --size: 24px;
+  --color: currentColor;
+  --animation-timing-function: linear;
+  --animation-duration: 2s;
+  width: var(--size);
+  height: var(--size);
+  background-color: var(--color);
+  transform: rotate(0deg);
+  animation: var(--animation-timing-function) var(--animation-duration) infinite
+    square-spin-1-animation;
+}
+
+@keyframes square-spin-1-animation {
+  0% {
+    transform: scale(1.5) rotate(0deg);
+  }
+
+  25% {
+    transform: scale(0.75) rotate(90deg);
+  }
+
+  50% {
+    transform: scale(1.5) rotate(180deg);
+  }
+
+  75% {
+    transform: scale(0.75) rotate(270deg);
+  }
+
+  100% {
+    transform: scale(1.5) rotate(360deg);
+  }
+}
+
+/* changing dots css */
+@keyframes dotsAnimation {
+  0%, 100% {
+    content: "";
+  }
+  25% {
+    content: ".";
+  }
+  50% {
+    content: "..";
+  }
+  75% {
+    content: "...";
+  }
+}
+
+.dots::before {
+  content: ".";
+  animation: dotsAnimation 1.5s infinite steps(1, end);
+  font-size: 2rem;
 }
