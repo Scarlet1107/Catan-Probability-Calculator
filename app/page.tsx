@@ -29,15 +29,32 @@ ChartJS.register(
 
 export default function App() {
   const [loading, setLoading] = useState(true);
+  const [timeoutReached, setTimeoutReached] = useState(false);
+  const [loadingComplete, setLoadingComplete] = useState(false);
 
   useEffect(() => {
     document.body.style.overflowY = "scroll"; // 常にスクロールバーを表示
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
 
-    return () => clearTimeout(timer); // クリーンアップ関数でタイマーをクリア
+    // Simulate loading process (e.g., data fetching)
+    const loadTimer = setTimeout(() => {
+      setLoadingComplete(true);
+    }, 1000); // Simulating a loading process that takes 1 second
+
+    const timeoutTimer = setTimeout(() => {
+      setTimeoutReached(true);
+    }, 2000); // Ensuring a minimum of 2 seconds loading time
+
+    return () => {
+      clearTimeout(loadTimer);
+      clearTimeout(timeoutTimer);
+    };
   }, []);
+
+  useEffect(() => {
+    if (loadingComplete && timeoutReached) {
+      setLoading(false);
+    }
+  }, [loadingComplete, timeoutReached]);
 
   if (loading) {
     return (
