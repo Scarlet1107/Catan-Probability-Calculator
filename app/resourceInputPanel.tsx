@@ -1,11 +1,13 @@
 // resourceInputPanel.tsx
-
-import React from "react";
+import React, { useRef } from "react";
 import { Settlement, useSettlements } from "../context/SettlementsContext";
 import { v4 as uuidv4 } from "uuid";
+import confetti from "canvas-confetti";
 
 const ResourceInputPanel = () => {
   const { settlements, setSettlements } = useSettlements();
+  const upGradebuttonRef = useRef<HTMLButtonElement>(null);
+  const createSettlementbuttonRef = useRef<HTMLButtonElement>(null);
   const initialSettlements: Settlement[] = [
     {
       name: "開拓地1",
@@ -34,6 +36,7 @@ const ResourceInputPanel = () => {
         upgraded: false,
       },
     ]);
+    handleCreateSettlementConfetti();
   };
 
   const handleResourceChange = (id: string, index: number, value: string) => {
@@ -77,6 +80,7 @@ const ResourceInputPanel = () => {
           : settlement
       )
     );
+    handleUpgradeCelebrate(upGradebuttonRef);
   };
 
   const handleDowngradeSettlement = (id: string) => {
@@ -108,6 +112,80 @@ const ResourceInputPanel = () => {
     }
   };
 
+  const showConfetti = (element: HTMLButtonElement) => {
+    const rect = element.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
+
+    confetti({
+      particleCount: 300,
+      startVelocity: 40,
+      spread: 360,
+      origin: {
+        x: x / window.innerWidth,
+        y: y / window.innerHeight,
+      },
+    });
+  };
+
+  const handleUpgradeCelebrate = (
+    buttonRef: React.RefObject<HTMLButtonElement>
+  ) => {
+    if (buttonRef.current) {
+      showConfetti(buttonRef.current);
+    }
+  };
+
+  const handleCreateSettlementConfetti = () => {
+    const count = 300;
+    const defaults = {
+      origin: { y: 0.7 },
+    };
+
+    function fire(
+      particleRatio: number,
+      opts: {
+        spread: number;
+        startVelocity?: number;
+        decay?: number;
+        scalar?: number;
+      }
+    ) {
+      confetti(
+        Object.assign({}, defaults, opts, {
+          particleCount: Math.floor(count * particleRatio),
+        })
+      );
+    }
+
+    fire(0.25, {
+      spread: 26,
+      startVelocity: 55,
+    });
+
+    fire(0.2, {
+      spread: 60,
+    });
+
+    fire(0.35, {
+      spread: 100,
+      decay: 0.91,
+      scalar: 0.8,
+    });
+
+    fire(0.1, {
+      spread: 120,
+      startVelocity: 25,
+      decay: 0.92,
+      scalar: 1.2,
+    });
+
+    fire(0.1, {
+      spread: 120,
+      startVelocity: 45,
+    });
+  };
+
   return (
     <>
       {/* 左側 */}
@@ -117,6 +195,7 @@ const ResourceInputPanel = () => {
           <button
             className="button bg-blue-500 hover:bg-blue-600 place-self-start w-4/5 h-5/6"
             onClick={handleCreateSettlement}
+            ref={createSettlementbuttonRef}
             tabIndex={1}
             data-testid="addSettlementButton"
           >
@@ -137,7 +216,10 @@ const ResourceInputPanel = () => {
         <div>
           {/* ここをmapで複数表示する */}
           {settlements.map((settlement) => (
-            <div key={settlement.id} className="grid grid-cols-5 gap-4 mb-4 place-items-end">
+            <div
+              key={settlement.id}
+              className="grid grid-cols-5 gap-4 mb-4 place-items-end"
+            >
               <input
                 type="text"
                 value={settlement.name}
@@ -215,6 +297,7 @@ const ResourceInputPanel = () => {
                   <button
                     className="button bg-blue-500 hover:bg-blue-600"
                     onClick={() => handleUpgradeSettlement(settlement.id)}
+                    ref={upGradebuttonRef}
                     tabIndex={2}
                     data-testid="upgradeButton"
                   >
