@@ -7,7 +7,7 @@
 ![Catanの画像](./public/Catan.webp)
 
 ## デモ
-s
+
 以下のように動作します。
 
 ![スクリーンショット](./public/demo.webp)
