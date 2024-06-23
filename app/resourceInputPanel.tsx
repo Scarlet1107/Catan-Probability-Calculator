@@ -26,6 +26,7 @@ const ResourceInputPanel = () => {
   ];
 
   const handleCreateSettlement = () => {
+    if (settlements.length >= 9) return; // 開拓地は最大9個まで
     setSettlements([
       ...settlements,
       {

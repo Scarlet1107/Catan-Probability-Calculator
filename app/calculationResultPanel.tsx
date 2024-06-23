@@ -1,9 +1,8 @@
-// calculationResultPanel.tsx
-
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useSettlements } from "../context/SettlementsContext";
 import InfoTooltip from "./InfoTooltip";
 import { Bar } from "react-chartjs-2";
+import Chart from 'chart.js/auto';
 
 const CalculationResultPanel = ({
   isNumericMode,
@@ -22,6 +21,8 @@ const CalculationResultPanel = ({
   const [recommendedSettlementName, setRecommendedSettlementName] =
     useState<string>("");
 
+  const chartRef = useRef<Chart | null>(null);
+
   // 開拓地の情報が変更されるたびに再計算する
   useEffect(() => {
     calculateExpectation();
@@ -30,6 +31,20 @@ const CalculationResultPanel = ({
     updateRecommendedNumbers();
     searchRecommendedSettlement();
   }, [settlements]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (chartRef.current) {
+        chartRef.current.resize();
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const numberToProbability = (number: number) => {
     if (number === 2 || number === 12) return 1;
@@ -197,6 +212,8 @@ const CalculationResultPanel = ({
   };
 
   const options = {
+    maintainAspectRatio: false,
+    responsive: true,
     scales: {
       y: {
         title: {
@@ -259,8 +276,8 @@ const CalculationResultPanel = ({
           </span>
           」
         </div>
-        <div className="text-2xl flex justify-center">
-          <Bar data={ChartData} options={options} />
+        <div className="text-2xl flex justify-center" style={{ height: "400px" }}>
+          <Bar ref={chartRef} data={ChartData} options={options}/>
         </div>
       </div>
     </>
