@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useSettlements } from "../context/SettlementsContext";
 import InfoTooltip from "./InfoTooltip";
 import { Bar } from "react-chartjs-2";
-import Chart from 'chart.js/auto';
+import Chart, { BubbleDataPoint, Point } from "chart.js/auto";
 
 const CalculationResultPanel = ({
   isNumericMode,
@@ -21,7 +21,11 @@ const CalculationResultPanel = ({
   const [recommendedSettlementName, setRecommendedSettlementName] =
     useState<string>("");
 
-  const chartRef = useRef<Chart | null>(null);
+  const chartRef = useRef<Chart<
+    "bar",
+    (number | Point | [number, number] | BubbleDataPoint | null)[],
+    unknown
+  > | null>(null);
 
   // 開拓地の情報が変更されるたびに再計算する
   useEffect(() => {
@@ -276,8 +280,11 @@ const CalculationResultPanel = ({
           </span>
           」
         </div>
-        <div className="text-2xl flex justify-center" style={{ height: "400px" }}>
-          <Bar ref={chartRef} data={ChartData} options={options}/>
+        <div
+          className="text-2xl flex justify-center"
+          style={{ height: "400px" }}
+        >
+          <Bar ref={chartRef} data={ChartData} options={options} />
         </div>
       </div>
     </>
