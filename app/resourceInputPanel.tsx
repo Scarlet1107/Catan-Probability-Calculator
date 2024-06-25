@@ -190,11 +190,11 @@ const ResourceInputPanel = () => {
   return (
     <>
       {/* 左側 */}
-      <div className="w-1/2 pl-8 pt-4 mr-4">
+      <div className="w-1/2 ml-12 pt-4 mr-4">
         <div>開拓地の情報から、資源取得確率や期待値を計算できます。</div>
-        <div className="grid grid-cols-5 gap-4 place-items-center mt-6 ">
+        <div className="grid grid-cols-5 gap-4 place-items-center mt-6 mb-2 ">
           <button
-            className="button bg-blue-500 hover:bg-blue-600 place-self-start w-4/5 h-5/6"
+            className="button bg-blue-500 hover:bg-blue-600 place-self-start w-5/6 h-5/6 2xl:text-md"
             onClick={handleCreateSettlement}
             ref={createSettlementbuttonRef}
             tabIndex={1}
@@ -202,9 +202,9 @@ const ResourceInputPanel = () => {
           >
             開拓地を追加
           </button>
-          <div className="text-xl font-medium">資源１</div>
-          <div className="text-xl font-medium">資源２</div>
-          <div className="text-xl font-medium">資源３</div>
+          <div className="text-xl font-medium mr-2">資源１</div>
+          <div className="text-xl font-medium mr-2">資源２</div>
+          <div className="text-xl font-medium mr-2">資源３</div>
           <button
             className="button mb-4 bg-gray-500 hover:bg-red-700 place-self-end w-4/5 mr-2"
             onClick={() => handleResetSettlements()}
@@ -224,6 +224,7 @@ const ResourceInputPanel = () => {
               <input
                 type="text"
                 value={settlement.name}
+                className="border border-gray-300 rounded px-4 py-2 h-1/2 w-5/6 place-self-start"
                 onChange={(e) => {
                   const name = e.target.value;
                   setSettlements(
@@ -232,7 +233,6 @@ const ResourceInputPanel = () => {
                     )
                   );
                 }}
-                className="border border-gray-300 rounded px-4 py-2 mb-2 h-1/2 w-4/5 place-self-start self-center"
                 placeholder="開拓地"
                 tabIndex={2}
                 data-testid="settlementNameInput"

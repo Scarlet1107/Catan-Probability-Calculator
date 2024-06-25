@@ -32,8 +32,9 @@ export default function App() {
   const [timeoutReached, setTimeoutReached] = useState(false);
   const [loadingComplete, setLoadingComplete] = useState(false);
 
+  // 常にスクロールバーを表示
   useEffect(() => {
-    document.body.style.overflowY = "scroll"; // 常にスクロールバーを表示
+    document.body.style.overflowY = "scroll"; 
 
     // Simulate loading process (e.g., data fetching)
     const loadTimer = setTimeout(() => {
@@ -98,7 +99,7 @@ function CatanApp() {
           isNumericMode={isNumericMode}
           setIsNumericMode={setIsNumericMode}
         />
-        <div className="flex h-screen justify-center bg-white">
+        <div className="flex h-screen justify-center bg-white pt-8 2xl:pt-4">
           <ResourceInputPanel />
           <CalculationResultPanel isNumericMode={isNumericMode} />
         </div>
