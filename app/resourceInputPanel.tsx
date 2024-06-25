@@ -206,7 +206,7 @@ const ResourceInputPanel = () => {
           <div className="text-xl font-medium mr-2">資源２</div>
           <div className="text-xl font-medium mr-2">資源３</div>
           <button
-            className="button mb-4 bg-gray-500 hover:bg-red-700 place-self-end w-4/5 mr-2"
+            className="button mb-4 bg-gray-500 hover:bg-red-700 place-self-end w-4/5"
             onClick={() => handleResetSettlements()}
             tabIndex={1}
             data-testid="resetButton"
@@ -219,7 +219,7 @@ const ResourceInputPanel = () => {
           {settlements.map((settlement) => (
             <div
               key={settlement.id}
-              className="grid grid-cols-5 gap-4 mb-4 place-items-end"
+              className="grid grid-cols-5 gap-4 mb-4 place-items-start"
             >
               <input
                 type="text"
