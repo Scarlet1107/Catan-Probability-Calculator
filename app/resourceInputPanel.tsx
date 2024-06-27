@@ -45,11 +45,11 @@ const ResourceInputPanel = () => {
       settlements.map((settlement) =>
         settlement.id === id
           ? {
-              ...settlement,
-              resources: settlement.resources.map((res, idx) =>
-                idx === index ? value : res
-              ) as [string, string, string],
-            }
+            ...settlement,
+            resources: settlement.resources.map((res, idx) =>
+              idx === index ? value : res
+            ) as [string, string, string],
+          }
           : settlement
       )
     );
@@ -60,11 +60,11 @@ const ResourceInputPanel = () => {
       settlements.map((settlement) =>
         settlement.id === id
           ? {
-              ...settlement,
-              numbers: settlement.numbers.map((num, idx) =>
-                idx === index ? value : num
-              ) as [number, number, number],
-            }
+            ...settlement,
+            numbers: settlement.numbers.map((num, idx) =>
+              idx === index ? value : num
+            ) as [number, number, number],
+          }
           : settlement
       )
     );
@@ -75,9 +75,9 @@ const ResourceInputPanel = () => {
       settlements.map((settlement) =>
         settlement.id === id
           ? {
-              ...settlement,
-              upgraded: true,
-            }
+            ...settlement,
+            upgraded: true,
+          }
           : settlement
       )
     );
@@ -91,9 +91,9 @@ const ResourceInputPanel = () => {
         settlements.map((settlement) =>
           settlement.id === id
             ? {
-                ...settlement,
-                upgraded: false,
-              }
+              ...settlement,
+              upgraded: false,
+            }
             : settlement
         )
       );
@@ -277,7 +277,7 @@ const ResourceInputPanel = () => {
                           value={number}
                           className={`${
                             number === 6 || number === 8 ? "text-red-500" : ""
-                          }`}
+                            }`}
                         >
                           {number}
                         </option>
