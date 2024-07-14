@@ -45,13 +45,13 @@ const ResourceInputPanel = () => {
       settlements.map((settlement) =>
         settlement.id === id
           ? {
-            ...settlement,
-            resources: settlement.resources.map((res, idx) =>
-              idx === index ? value : res
-            ) as [string, string, string],
-          }
-          : settlement
-      )
+              ...settlement,
+              resources: settlement.resources.map((res, idx) =>
+                idx === index ? value : res,
+              ) as [string, string, string],
+            }
+          : settlement,
+      ),
     );
   };
 
@@ -60,13 +60,13 @@ const ResourceInputPanel = () => {
       settlements.map((settlement) =>
         settlement.id === id
           ? {
-            ...settlement,
-            numbers: settlement.numbers.map((num, idx) =>
-              idx === index ? value : num
-            ) as [number, number, number],
-          }
-          : settlement
-      )
+              ...settlement,
+              numbers: settlement.numbers.map((num, idx) =>
+                idx === index ? value : num,
+              ) as [number, number, number],
+            }
+          : settlement,
+      ),
     );
   };
 
@@ -75,11 +75,11 @@ const ResourceInputPanel = () => {
       settlements.map((settlement) =>
         settlement.id === id
           ? {
-            ...settlement,
-            upgraded: true,
-          }
-          : settlement
-      )
+              ...settlement,
+              upgraded: true,
+            }
+          : settlement,
+      ),
     );
     handleUpgradeCelebrate(upGradebuttonRef);
   };
@@ -91,11 +91,11 @@ const ResourceInputPanel = () => {
         settlements.map((settlement) =>
           settlement.id === id
             ? {
-              ...settlement,
-              upgraded: false,
-            }
-            : settlement
-        )
+                ...settlement,
+                upgraded: false,
+              }
+            : settlement,
+        ),
       );
   };
 
@@ -130,7 +130,7 @@ const ResourceInputPanel = () => {
   };
 
   const handleUpgradeCelebrate = (
-    buttonRef: React.RefObject<HTMLButtonElement>
+    buttonRef: React.RefObject<HTMLButtonElement>,
   ) => {
     if (buttonRef.current) {
       showConfetti(buttonRef.current);
@@ -150,12 +150,12 @@ const ResourceInputPanel = () => {
         startVelocity?: number;
         decay?: number;
         scalar?: number;
-      }
+      },
     ) {
       confetti(
         Object.assign({}, defaults, opts, {
           particleCount: Math.floor(count * particleRatio),
-        })
+        }),
       );
     }
 
@@ -190,11 +190,11 @@ const ResourceInputPanel = () => {
   return (
     <>
       {/* 左側 */}
-      <div className="w-1/2 ml-12 pt-4 mr-4">
+      <div className="ml-12 mr-4 w-1/2 pt-4">
         <div>開拓地の情報から、資源取得確率や期待値を計算できます。</div>
-        <div className="grid grid-cols-5 gap-4 place-items-center mt-6 mb-2 ">
+        <div className="mb-2 mt-6 grid grid-cols-5 place-items-center gap-4">
           <button
-            className="button bg-blue-500 hover:bg-blue-600 place-self-start w-5/6 h-5/6 2xl:text-md"
+            className="button 2xl:text-md h-5/6 w-5/6 place-self-start bg-blue-500 hover:bg-blue-600"
             onClick={handleCreateSettlement}
             ref={createSettlementbuttonRef}
             tabIndex={1}
@@ -202,11 +202,11 @@ const ResourceInputPanel = () => {
           >
             開拓地を追加
           </button>
-          <div className="text-xl font-medium mr-2">資源１</div>
-          <div className="text-xl font-medium mr-2">資源２</div>
-          <div className="text-xl font-medium mr-2">資源３</div>
+          <div className="mr-2 text-xl font-medium">資源１</div>
+          <div className="mr-2 text-xl font-medium">資源２</div>
+          <div className="mr-2 text-xl font-medium">資源３</div>
           <button
-            className="button mb-4 bg-gray-500 hover:bg-red-700 place-self-end w-4/5"
+            className="button mb-4 w-4/5 place-self-end bg-gray-500 hover:bg-red-700"
             onClick={() => handleResetSettlements()}
             tabIndex={1}
             data-testid="resetButton"
@@ -219,18 +219,18 @@ const ResourceInputPanel = () => {
           {settlements.map((settlement) => (
             <div
               key={settlement.id}
-              className="grid grid-cols-5 gap-4 mb-4 place-items-start"
+              className="mb-4 grid grid-cols-5 place-items-start gap-4"
             >
               <input
                 type="text"
                 value={settlement.name}
-                className="border border-gray-300 rounded px-4 py-2 h-1/2 w-5/6 place-self-start"
+                className="h-1/2 w-5/6 place-self-start rounded border border-gray-300 px-4 py-2"
                 onChange={(e) => {
                   const name = e.target.value;
                   setSettlements(
                     settlements.map((s) =>
-                      s.id === settlement.id ? { ...s, name } : s
-                    )
+                      s.id === settlement.id ? { ...s, name } : s,
+                    ),
                   );
                 }}
                 placeholder="開拓地"
@@ -244,7 +244,7 @@ const ResourceInputPanel = () => {
                     onChange={(e) =>
                       handleResourceChange(settlement.id, index, e.target.value)
                     }
-                    className="justify-self-center w-4/5 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                    className="w-4/5 justify-self-center rounded border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                     tabIndex={1}
                     data-testid="resourceSelect"
                   >
@@ -261,10 +261,10 @@ const ResourceInputPanel = () => {
                       handleNumberChange(
                         settlement.id,
                         index,
-                        Number(e.target.value)
+                        Number(e.target.value),
                       )
                     }
-                    className="w-4/5 mt-2 border border-gray-300 rounded px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                    className="mt-2 w-4/5 rounded border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                     tabIndex={1}
                     data-testid="numberSelect"
                   >
@@ -277,7 +277,7 @@ const ResourceInputPanel = () => {
                           value={number}
                           className={`${
                             number === 6 || number === 8 ? "text-red-500" : ""
-                            }`}
+                          }`}
                         >
                           {number}
                         </option>
@@ -285,7 +285,7 @@ const ResourceInputPanel = () => {
                   </select>
                 </div>
               ))}
-              <div className="flex flex-col w-full mr-2">
+              <div className="mr-2 flex w-full flex-col">
                 {settlement.upgraded ? (
                   <button
                     className="button bg-green-500 hover:bg-green-600"
@@ -306,7 +306,7 @@ const ResourceInputPanel = () => {
                   </button>
                 )}
                 <button
-                  className="button bg-red-500 hover:bg-red-600 mt-2"
+                  className="button mt-2 bg-red-500 hover:bg-red-600"
                   onClick={() => handleDeleteSettlement(settlement.id)}
                   tabIndex={2}
                   data-testid="deleteButton"

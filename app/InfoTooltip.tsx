@@ -28,7 +28,7 @@ const InfoTooltip: React.FC<InfoTooltipProps> = ({ text, tooltipText }) => {
       <span
         className={`${
           visible ? "opacity-100" : "opacity-0"
-        } absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-64 bg-gray-800 text-white text-center rounded py-2 transition-opacity duration-300 pointer-events-none tooltip`}
+        } tooltip pointer-events-none absolute left-1/2 top-full mt-2 w-64 -translate-x-1/2 transform rounded bg-gray-800 py-2 text-center text-white transition-opacity duration-300`}
       >
         {tooltipText}
         <span className="tooltip-arrow"></span>

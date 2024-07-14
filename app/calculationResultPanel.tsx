@@ -234,8 +234,8 @@ const CalculationResultPanel = ({
 
   return (
     <>
-      <div className="w-1/2 ml-4 mr-8">
-        <div className="text-2xl m-4">
+      <div className="ml-4 mr-8 w-1/2">
+        <div className="m-4 text-2xl">
           <InfoTooltip
             text="期待値"
             tooltipText="2から12の36通りの数字が出たときに、何枚の資源がもらえるかを表します"
@@ -247,7 +247,7 @@ const CalculationResultPanel = ({
             <span>ランク{expectedValueRank}</span>
           )}
         </div>
-        <div className="text-2xl m-4">
+        <div className="m-4 text-2xl">
           <InfoTooltip
             text="資源取得確率"
             tooltipText="ダイスを振ったときに資源が１枚以上もらえる確率を表します"
@@ -259,7 +259,7 @@ const CalculationResultPanel = ({
             <span>ランク{probabilityRank}</span>
           )}
         </div>
-        <div className="text-2xl m-4">
+        <div className="m-4 text-2xl">
           <InfoTooltip
             text="おすすめの数字"
             tooltipText="おすすめの開拓地の数字の場所を表します"
@@ -269,7 +269,7 @@ const CalculationResultPanel = ({
             {recommendedNumbers.join(", ")}
           </span>
         </div>
-        <div className="text-2xl m-4">
+        <div className="m-4 text-2xl">
           <InfoTooltip
             text="アップグレードにおすすめの開拓地"
             tooltipText="資源取得量からアップグレードにおすすめの開拓地を計算します。資源取得量のみを考慮しているのでお気をつけください"
@@ -281,7 +281,7 @@ const CalculationResultPanel = ({
           」
         </div>
         <div
-          className="text-2xl flex justify-center"
+          className="flex justify-center text-2xl"
           style={{ height: "400px" }}
         >
           <Bar ref={chartRef} data={ChartData} options={options} />

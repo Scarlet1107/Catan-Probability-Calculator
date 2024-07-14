@@ -24,7 +24,7 @@ ChartJS.register(
   BarElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
 );
 
 export default function App() {
@@ -34,7 +34,7 @@ export default function App() {
 
   // 常にスクロールバーを表示
   useEffect(() => {
-    document.body.style.overflowY = "scroll"; 
+    document.body.style.overflowY = "scroll";
 
     // Simulate loading process (e.g., data fetching)
     const loadTimer = setTimeout(() => {
@@ -59,9 +59,11 @@ export default function App() {
 
   if (loading) {
     return (
-      <div className="bg-custom-bg bg-cover bg-center flex items-center justify-center h-screen">
+      <div className="flex h-screen items-center justify-center bg-custom-bg bg-cover bg-center">
         <div className="square-spin-1 mr-8"></div>
-        <div className="text-5xl">Now Loading<span className="dots fixed font-bold"></span></div>
+        <div className="text-5xl">
+          Now Loading<span className="dots fixed font-bold"></span>
+        </div>
       </div>
     );
   } else {
@@ -89,7 +91,7 @@ function CatanApp() {
   }, [setSettlements]);
 
   return (
-    <main className="bg-custom-bg bg-cover bg-center h-screen">
+    <main className="h-screen bg-custom-bg bg-cover bg-center">
       <div
         className={`opacity-0 ${
           isVisible ? "opacity-100" : ""
